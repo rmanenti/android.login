@@ -18,9 +18,9 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-//import utilities.android.wizsyst.com.android.utilities.connection.Service;
-//import utilities.android.wizsyst.com.android.utilities.connection.http.Http;
-//import utilities.android.wizsyst.com.android.utilities.xml.Xml;
+import com.wizsyst.android.app.login.utilities.connection.Service;
+import com.wizsyst.android.app.login.utilities.connection.http.Http;
+import com.wizsyst.android.app.login.utilities.xml.Xml;
 
 /**
  * Created by rmanenti on 22/04/2016.
@@ -60,7 +60,6 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     @Override
     protected Boolean doInBackground( String... params ) {
 
-         /*
         if ( user == null || TextUtils.isEmpty( user.getLogin() ) || TextUtils.isEmpty( user.getPassword() ) ) {
             return false;
         }
@@ -127,7 +126,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             if ( conn != null ) {
                 conn.disconnect();
             }
-        }*/
+        }
         return true;
    }
 
