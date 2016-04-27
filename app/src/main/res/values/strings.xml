@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="access">Access</string>
+    <string name="wait">Wait</string>
+    <string name="loading">Loading</string>
+    <string name="processing">Processing</string>
+    <string name="loggingIn">Logging in</string>
+    <string name="error">Error</string>
+    <string name="loginUnsuccessful">Could not login.</string>
+    <string name="noConnectionAvailable">No network connection available.</string>
+    <string name="connectionEstablished">Connection established...</string>
+    <string name="retrievingData">Retrieving data...</string>
+</resources>
