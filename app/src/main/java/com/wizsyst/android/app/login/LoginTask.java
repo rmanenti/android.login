@@ -8,16 +8,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fasterxml.aalto.stax.InputFactoryImpl;
-import com.fasterxml.aalto.stax.OutputFactoryImpl;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
-import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.wizsyst.android.app.login.activity.MainActivity;
 import com.wizsyst.android.app.login.model.Erro;
-import com.wizsyst.android.app.login.model.User;
+import com.wizsyst.android.app.login.model.Usuario;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,13 +20,17 @@ import java.net.URL;
 
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
+import com.wizsyst.android.app.login.utilities.xml.Xml;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * Created by rmanenti on 22/04/2016.
  */
 public class LoginTask extends AsyncTask<String, String, Boolean> {
 
-    private static final String URI                = "http://192.168.0.239:8082/WizRest2/webresources/Login",
+    private static final String URI                = "http://192.168.0.7:8080/WizRest2/webresources/Login",
                                 URI_PARAM_USER     = "usuario",
                                 URI_PARAM_PASSWORD = "senha";
 
@@ -44,15 +41,15 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
     private ProgressDialog progressDialog;
 
-    private User user;
+    private Usuario usuario;
 
     private Long startTime,
                  endTime;
 
-    public LoginTask( Context context, User user ) {
+    public LoginTask( Context context, Usuario usuario ) {
 
         this.context = context;
-        this.user    = user;
+        this.usuario    = usuario;
     }
 
     @Override
@@ -66,7 +63,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     @Override
     protected Boolean doInBackground( String... params ) {
 
-        if ( user == null || TextUtils.isEmpty( user.getLogin() ) || TextUtils.isEmpty( user.getPassword() ) ) {
+        if ( usuario == null || TextUtils.isEmpty( usuario.getLogin() ) || TextUtils.isEmpty( usuario.getPassword() ) ) {
             return false;
         }
 
@@ -78,11 +75,11 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                             .append( "?" )
                             .append( URI_PARAM_USER )
                             .append( "=" )
-                            .append( user.getLogin() )
+                            .append( usuario.getLogin() )
                             .append( "&" )
                             .append( URI_PARAM_PASSWORD )
                             .append( "=" )
-                            .append( user.getPassword() )
+                            .append( usuario.getPassword() )
                             .toString();
 
         Log.i( "LOGIN.uri", uri );
@@ -115,39 +112,31 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 return false;
             }
 
-            //Use Aalto StAX implementation explicitly for XML parsing
-            XmlFactory f = new XmlFactory(new InputFactoryImpl(), new OutputFactoryImpl());
+            Log.i( "LOGIN.DATA", data );
 
-            JacksonXmlModule module = new JacksonXmlModule();
+            Document doc = Xml.getDomElement(data);
 
-    /*
-     * Tell Jackson that Lists are using "unwrapped" style (i.e.,
-     * there is no wrapper element for list).
-     * NOTE - This requires Jackson 2.1 or higher
-     */
-            module.setDefaultUseWrapper(false);
+            if ( Xml.hasNode( doc.getDocumentElement(), "erro", true ) ) {
 
-            XmlMapper xmlMapper = new XmlMapper(f, module);
+                Node erroNode = Xml.getNode( "erro", doc.getDocumentElement() );
 
-            xmlMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-            xmlMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT,true);
-            xmlMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
-            xmlMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING,true);
+                Erro erro = new Erro( Xml.getElementValue( Xml.getNode( "codigo", erroNode ) ),
+                                      Xml.getElementValue( Xml.getNode( "descricao", erroNode ) ),
+                                      Xml.getElementValue( Xml.getNode( "solucao", erroNode ) ) );
 
-            //Tell Jackson to expect the XML in PascalCase, instead of camelCase
-            xmlMapper.setPropertyNamingStrategy(new PropertyNamingStrategy.PascalCaseStrategy() );
+                Log.i( "LOGIN.TASK.ERRO", erro.toString() );
 
-            Erro erro = xmlMapper.readValue( data, Erro.class );
-
-            if ( erro != null ) {
                 return false;
             }
-//
-//          Document doc = Xml.getDomElement(data);
-//
-//            if ( Xml.hasNode( doc.getDocumentElement(), "erro", true ) ) {
-//                return false;
-//            }
+
+            Node usuarioNode = Xml.getNode( "usuario", doc.getDocumentElement() );
+
+            usuario = new Usuario();
+            usuario.setId( Long.valueOf( Xml.getElementValue( Xml.getNode( "id", usuarioNode ) ) ) );
+            usuario.setLogin( Xml.getElementValue( Xml.getNode( "login", usuarioNode ) ) );
+            usuario.setNome( Xml.getElementValue( Xml.getNode( "nome", usuarioNode ) ) );
+            usuario.setBloqueado( Boolean.valueOf( Xml.getElementValue( Xml.getNode( "bloqueado", usuarioNode ) ) ) );
+            usuario.setDeletado( Boolean.valueOf( Xml.getElementValue( Xml.getNode( "deletado", usuarioNode ) ) ) );
         }
         catch( SocketTimeoutException e ) {
             return false;
@@ -180,13 +169,13 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
         if ( success ) {
 
             Intent it = new Intent( context, MainActivity.class );
-            it.putExtra( "username", user.getLogin() );
+            it.putExtra( URI_PARAM_USER, usuario );
             context.startActivity( it );
 
-            Toast.makeText( context, "Login bem sucedido.", Toast.LENGTH_SHORT).show();
+            Toast.makeText( context, context.getString( R.string.loginSuccessful ), Toast.LENGTH_SHORT ).show();
         }
         else {
-            Toast.makeText( context, context.getString( R.string.loginUnsuccessful ), Toast.LENGTH_SHORT).show();
+            Toast.makeText( context, context.getString( R.string.loginUnsuccessful ), Toast.LENGTH_SHORT ).show();
         }
 
         progressDialog.dismiss();

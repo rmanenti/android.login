@@ -10,6 +10,7 @@
     <string name="loggingIn">Logging in</string>
     <string name="erro">Error</string>
     <string name="loginUnsuccessful">Could not login.</string>
+    <string name="loginSuccessful">Login successful.</string>
     <string name="noConnectionAvailable">No network connection available.</string>
     <string name="connectionEstablished">Connection established...</string>
     <string name="retrievingData">Retrieving data...</string>

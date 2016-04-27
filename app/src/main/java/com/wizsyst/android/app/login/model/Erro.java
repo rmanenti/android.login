@@ -68,4 +68,9 @@ public class Erro {
         result = 31 * result + (solucao != null ? solucao.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format( "Erro de código %s, descrito por '%s'. Sua solução é: %s", codigo, descricao, solucao );
+    }
 }

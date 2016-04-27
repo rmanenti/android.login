@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
+import com.wizsyst.android.app.login.model.Usuario;
 
 /**
  * Created by rmanenti on 22/04/2016.
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         title = ( TextView ) findViewById( R.id.title );
 
         Intent it = getIntent();
-        title.setText( it.getStringExtra( "username" ) );
+        Usuario usuario = ( Usuario ) it.getParcelableExtra( "usuario" );
+        title.setText( usuario.getNome() );
     }
 
 

@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.wizsyst.android.app.login.LoginTask;
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.model.User;
+import com.wizsyst.android.app.login.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login() {
 
-        lt = new LoginTask( LoginActivity.this, new User( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
+        lt = new LoginTask( LoginActivity.this, new Usuario( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
         lt.execute();
     }
 }

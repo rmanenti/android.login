@@ -3,16 +3,7 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     mavenCentral()
-    maven {
-        // CUTR SNAPSHOTs
-        url "https://github.com/CUTR-at-USF/cutr-mvn-repo/raw/master/snapshots"
-    }
-    maven {
-        // CUTR Releases
-        url "https://github.com/CUTR-at-USF/cutr-mvn-repo/raw/master/releases"
-    }
 }
-
 
 android {
     compileSdkVersion 23
@@ -34,18 +25,8 @@ android {
 }
 
 dependencies {
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-
-    // For XML usage...
-    // Normal Jackson libraries
-    compile 'com.fasterxml.jackson.core:jackson-core:2.1.2'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.1.2'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.1.2'
-    // Repackaged XML-specific libraries
-    compile 'edu.usf.cutr.android.xml:jackson-dataformat-xml-android:2.1.2'
-    compile 'edu.usf.cutr.android.xml:stax2-api-android:3.1.1'
-    compile 'edu.usf.cutr.android.xml:stax-api-android:1.0-2'
-    compile 'edu.usf.cutr.android.xml:aalto-xml-android:0.9.8'
 }

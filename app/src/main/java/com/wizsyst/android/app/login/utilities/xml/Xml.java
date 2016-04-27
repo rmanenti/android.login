@@ -1,5 +1,6 @@
 package com.wizsyst.android.app.login.utilities.xml;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.w3c.dom.Document;
@@ -89,6 +90,35 @@ public class Xml {
         }
 
         return found;
+    }
+
+    public static Node getNode( String name, Node parent ) {
+
+        Node node = null;
+
+        boolean found = false;
+
+        if ( parent != null && ( name != null && !name.isEmpty() ) ) {
+
+            if ( parent.getNodeName().equals( name ) ) {
+                return parent;
+            }
+            else {
+
+                if ( parent.hasChildNodes() ) {
+                    node =  Xml.getNode( name, parent.getFirstChild() );
+                }
+
+                if ( node == null ) {
+
+                    while (parent.getNextSibling() != null) {
+                        return Xml.getNode( name, parent.getNextSibling() );
+                    }
+                }
+            }
+        }
+
+        return node;
     }
 
     public static Node getFirstNode( Document doc ) {
