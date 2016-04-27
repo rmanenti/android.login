@@ -8,10 +8,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fasterxml.aalto.stax.InputFactoryImpl;
+import com.fasterxml.aalto.stax.OutputFactoryImpl;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
+import com.fasterxml.jackson.dataformat.xml.XmlFactory;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.wizsyst.android.app.login.activity.MainActivity;
+import com.wizsyst.android.app.login.model.Erro;
 import com.wizsyst.android.app.login.model.User;
 
-import org.w3c.dom.Document;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -20,7 +27,6 @@ import java.net.URL;
 
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
-import com.wizsyst.android.app.login.utilities.xml.Xml;
 
 /**
  * Created by rmanenti on 22/04/2016.
@@ -109,11 +115,39 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 return false;
             }
 
-            Document doc = Xml.getDomElement(data);
+            //Use Aalto StAX implementation explicitly for XML parsing
+            XmlFactory f = new XmlFactory(new InputFactoryImpl(), new OutputFactoryImpl());
 
-            if ( Xml.hasNode( doc.getDocumentElement(), "erro", true ) ) {
+            JacksonXmlModule module = new JacksonXmlModule();
+
+    /*
+     * Tell Jackson that Lists are using "unwrapped" style (i.e.,
+     * there is no wrapper element for list).
+     * NOTE - This requires Jackson 2.1 or higher
+     */
+            module.setDefaultUseWrapper(false);
+
+            XmlMapper xmlMapper = new XmlMapper(f, module);
+
+            xmlMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+            xmlMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT,true);
+            xmlMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
+            xmlMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING,true);
+
+            //Tell Jackson to expect the XML in PascalCase, instead of camelCase
+            xmlMapper.setPropertyNamingStrategy(new PropertyNamingStrategy.PascalCaseStrategy() );
+
+            Erro erro = xmlMapper.readValue( data, Erro.class );
+
+            if ( erro != null ) {
                 return false;
             }
+//
+//          Document doc = Xml.getDomElement(data);
+//
+//            if ( Xml.hasNode( doc.getDocumentElement(), "erro", true ) ) {
+//                return false;
+//            }
         }
         catch( SocketTimeoutException e ) {
             return false;
