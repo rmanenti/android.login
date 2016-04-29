@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.wizsyst.android.app.login.LoginTask;
 import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.model.Usuario;
+import com.wizsyst.android.app.login.model.UsuarioPortal;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -15,6 +16,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                        inputPassword;
 
     protected Button buttonLogin;
+
+    protected View messageBox;
 
     protected LoginTask lt;
 
@@ -28,6 +31,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         inputPassword = ( EditText ) findViewById( R.id.password );
         buttonLogin   = ( Button ) findViewById( R.id.button );
         buttonLogin.setOnClickListener( this );
+
+        messageBox    = findViewById( R.id.mb );
     }
 
     @Override
@@ -46,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login() {
 
-        lt = new LoginTask( LoginActivity.this, new Usuario( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
+        lt = new LoginTask( LoginActivity.this, new UsuarioPortal( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
         lt.execute();
     }
 }

@@ -8,13 +8,14 @@ import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.model.Usuario;
+import com.wizsyst.android.app.login.model.UsuarioPortal;
 
 /**
  * Created by rmanenti on 22/04/2016.
  */
 public class MainActivity extends AppCompatActivity {
 
-    TextView title;
+    private TextView title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,8 +27,15 @@ public class MainActivity extends AppCompatActivity {
         title = ( TextView ) findViewById( R.id.title );
 
         Intent it = getIntent();
-        Usuario usuario = ( Usuario ) it.getParcelableExtra( "usuario" );
-        title.setText( usuario.getNome() );
+        UsuarioPortal usuario = ( UsuarioPortal ) it.getParcelableExtra( "usuario" );
+        title.setText( String.format( "IdUsua = %s, IdServ = %s, Usuario = %s, CodMatricula = %s, DigMatricula = %s, Nome = %s, Sessao = %s ",
+                                            usuario.getIdUsua().toString(),
+                                            usuario.getIdServ().toString(),
+                                            usuario.getUsuario(),
+                                            usuario.getCodMatricula(),
+                                            usuario.getDigMatricula(),
+                                            usuario.getNome(),
+                                            usuario.getSessao() ) );
     }
 
 

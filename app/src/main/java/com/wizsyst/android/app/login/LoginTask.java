@@ -1,11 +1,20 @@
 package com.wizsyst.android.app.login;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wizsyst.android.app.login.activity.MainActivity;
@@ -18,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+import com.wizsyst.android.app.login.model.UsuarioPortal;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
 import com.wizsyst.android.app.login.utilities.xml.Xml;
@@ -38,18 +48,30 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                         MAX_READ_TIMEOUT = 25000L;
 
     private Context context;
+    private Activity caller;
+
+    private View messageBox;
+    private TextView title,
+                     message;
 
     private ProgressDialog progressDialog;
 
-    private Usuario usuario;
+    private Erro erro;
+
+    private UsuarioPortal usuario;
 
     private Long startTime,
                  endTime;
 
-    public LoginTask( Context context, Usuario usuario ) {
+    public LoginTask( Context context, UsuarioPortal usuario ) {
 
         this.context = context;
-        this.usuario    = usuario;
+        this.usuario = usuario;
+
+        caller  = ( Activity ) context;
+        messageBox = ( View ) caller.findViewById( R.id.mb );
+        title      = ( TextView ) caller.findViewById( R.id.mb_message_title );
+        message    = ( TextView ) caller.findViewById( R.id.mb_message_text );
     }
 
     @Override
@@ -63,7 +85,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     @Override
     protected Boolean doInBackground( String... params ) {
 
-        if ( usuario == null || TextUtils.isEmpty( usuario.getLogin() ) || TextUtils.isEmpty( usuario.getPassword() ) ) {
+        if ( usuario == null || TextUtils.isEmpty( usuario.getUsuario() ) || TextUtils.isEmpty( usuario.getSenha() ) ) {
             return false;
         }
 
@@ -75,11 +97,11 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                             .append( "?" )
                             .append( URI_PARAM_USER )
                             .append( "=" )
-                            .append( usuario.getLogin() )
+                            .append( usuario.getUsuario() )
                             .append( "&" )
                             .append( URI_PARAM_PASSWORD )
                             .append( "=" )
-                            .append( usuario.getPassword() )
+                            .append( usuario.getSenha() )
                             .toString();
 
         Log.i( "LOGIN.uri", uri );
@@ -120,9 +142,9 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
                 Node erroNode = Xml.getNode( "erro", doc.getDocumentElement() );
 
-                Erro erro = new Erro( Xml.getElementValue( Xml.getNode( "codigo", erroNode ) ),
-                                      Xml.getElementValue( Xml.getNode( "descricao", erroNode ) ),
-                                      Xml.getElementValue( Xml.getNode( "solucao", erroNode ) ) );
+                erro = new Erro( Xml.getElementValue( Xml.getNode( "codigo", erroNode ) ),
+                                 Xml.getElementValue( Xml.getNode( "descricao", erroNode ) ),
+                                 Xml.getElementValue( Xml.getNode( "solucao", erroNode ) ) );
 
                 Log.i( "LOGIN.TASK.ERRO", erro.toString() );
 
@@ -131,12 +153,14 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
             Node usuarioNode = Xml.getNode( "usuario", doc.getDocumentElement() );
 
-            usuario = new Usuario();
-            usuario.setId( Long.valueOf( Xml.getElementValue( Xml.getNode( "id", usuarioNode ) ) ) );
-            usuario.setLogin( Xml.getElementValue( Xml.getNode( "login", usuarioNode ) ) );
+            usuario = new UsuarioPortal();
+            usuario.setIdUsua( Long.valueOf( Xml.getElementValue( Xml.getNode( "iduser", usuarioNode ) ) ) );
+            usuario.setIdServ( Long.valueOf( Xml.getElementValue( Xml.getNode( "idserv", usuarioNode ) ) ) );
+            usuario.setUsuario( Xml.getElementValue( Xml.getNode( "usuario", usuarioNode ) ) );
+            usuario.setCodMatricula( Xml.getElementValue( Xml.getNode( "codmatricula", usuarioNode ) ) );
+            usuario.setDigMatricula( Xml.getElementValue( Xml.getNode( "digmatricula", usuarioNode ) ) );
             usuario.setNome( Xml.getElementValue( Xml.getNode( "nome", usuarioNode ) ) );
-            usuario.setBloqueado( Boolean.valueOf( Xml.getElementValue( Xml.getNode( "bloqueado", usuarioNode ) ) ) );
-            usuario.setDeletado( Boolean.valueOf( Xml.getElementValue( Xml.getNode( "deletado", usuarioNode ) ) ) );
+            usuario.setSessao( Xml.getElementValue( Xml.getNode( "sessao", usuarioNode ) ) );
         }
         catch( SocketTimeoutException e ) {
             return false;
@@ -175,7 +199,10 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             Toast.makeText( context, context.getString( R.string.loginSuccessful ), Toast.LENGTH_SHORT ).show();
         }
         else {
-            Toast.makeText( context, context.getString( R.string.loginUnsuccessful ), Toast.LENGTH_SHORT ).show();
+
+            messageBox.setVisibility( View.VISIBLE );
+            title.setText( erro.getCodigo() );
+            message.setText( erro.getDescricao() );
         }
 
         progressDialog.dismiss();
