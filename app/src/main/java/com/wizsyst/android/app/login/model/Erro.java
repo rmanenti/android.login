@@ -6,21 +6,21 @@ package com.wizsyst.android.app.login.model;
 public class Erro {
 
     private String codigo,
-                   descricao,
-                   solucao;
+                   mensagem,
+                   correcao;
 
     public Erro() {}
 
-    public Erro(String codigo, String descricao ) {
+    public Erro(String codigo, String mensagem ) {
 
         this.codigo = codigo;
-        this.descricao = descricao;
+        this.mensagem = mensagem;
     }
 
-    public Erro(String codigo, String descricao, String solucao ) {
+    public Erro(String codigo, String mensagem, String correcao ) {
 
-        this( codigo, descricao );
-        this.solucao = solucao;
+        this( codigo, mensagem );
+        this.correcao = correcao;
     }
 
     public String getCodigo() {
@@ -31,20 +31,20 @@ public class Erro {
         this.codigo = codigo;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getMensagem() {
+        return mensagem;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
-    public String getSolucao() {
-        return solucao;
+    public String getCorrecao() {
+        return correcao;
     }
 
-    public void setSolucao(String solucao) {
-        this.solucao = solucao;
+    public void setCorrecao(String correcao) {
+        this.correcao = correcao;
     }
 
     @Override
@@ -55,22 +55,22 @@ public class Erro {
         Erro erro = (Erro) o;
 
         if (!codigo.equals(erro.codigo)) return false;
-        if (descricao != null ? !descricao.equals(erro.descricao) : erro.descricao != null)
+        if (mensagem != null ? !mensagem.equals(erro.mensagem) : erro.mensagem != null)
             return false;
-        return solucao != null ? solucao.equals(erro.solucao) : erro.solucao == null;
+        return correcao != null ? correcao.equals(erro.correcao) : erro.correcao == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = codigo.hashCode();
-        result = 31 * result + (descricao != null ? descricao.hashCode() : 0);
-        result = 31 * result + (solucao != null ? solucao.hashCode() : 0);
+        result = 31 * result + (mensagem != null ? mensagem.hashCode() : 0);
+        result = 31 * result + (correcao != null ? correcao.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format( "Erro de código %s, descrito por '%s'. Sua solução é: %s", codigo, descricao, solucao );
+        return String.format( "Erro de código %s, descrito por '%s'. Sua solução é: %s", codigo, mensagem, correcao );
     }
 }

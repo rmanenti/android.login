@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class UsuarioPortal implements Parcelable {
 
-    private Long idUsua,
+    private Long idUser,
                  idServ;
 
     private String usuario,
@@ -29,7 +29,7 @@ public class UsuarioPortal implements Parcelable {
 
     private UsuarioPortal( Parcel in ) {
 
-        idUsua       = in.readLong();
+        idUser       = in.readLong();
         idServ       = in.readLong();
         usuario      = in.readString();
         codMatricula = in.readString();
@@ -38,12 +38,12 @@ public class UsuarioPortal implements Parcelable {
         sessao       = in.readString();
     }
 
-    public Long getIdUsua() {
-        return idUsua;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setIdUsua(Long idUsua) {
-        this.idUsua = idUsua;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public Long getIdServ() {
@@ -111,7 +111,7 @@ public class UsuarioPortal implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
 
-        out.writeLong( idUsua );
+        out.writeLong( idUser );
         out.writeLong( idServ );
         out.writeString( usuario );
         out.writeString( codMatricula );
@@ -145,7 +145,7 @@ public class UsuarioPortal implements Parcelable {
 
         UsuarioPortal that = ( UsuarioPortal ) o;
 
-        if (!idUsua.equals(that.idUsua)) return false;
+        if (!idUser.equals(that.idUser)) return false;
         if (idServ != null ? !idServ.equals(that.idServ) : that.idServ != null) return false;
 
         return usuario.equals(that.usuario);
@@ -153,7 +153,7 @@ public class UsuarioPortal implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = idUsua.hashCode();
+        int result = idUser.hashCode();
         result = 31 * result + (idServ != null ? idServ.hashCode() : 0);
         result = 31 * result + usuario.hashCode();
         return result;

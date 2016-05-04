@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.wizsyst.android.app.login"
-        minSdkVersion 18
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -30,4 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile 'com.google.code.gson:gson:2.4'
 }
