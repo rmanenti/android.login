@@ -3,6 +3,7 @@ package com.wizsyst.android.app.login.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
+import com.wizsyst.android.app.login.fragment.UserFragment;
 import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.model.UsuarioPortal;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         UsuarioPortal usuario = ( UsuarioPortal ) it.getParcelableExtra( "usuario" );
+
         title.setText( String.format( "IdUsua = %s, IdServ = %s, Usuario = %s, CodMatricula = %s, DigMatricula = %s, Nome = %s, Sessao = %s ",
                                             usuario.getIdUser().toString(),
                                             usuario.getIdServ().toString(),
@@ -40,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
                                             usuario.getDigMatricula(),
                                             usuario.getNome(),
                                             usuario.getSessao() ) );
+
+        UserFragment uf;
+
+        Bundle arguments = new Bundle();
+        arguments.putParcelable( "usuario", usuario );
+
+        uf = new UserFragment();
+        uf.setArguments( arguments );
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace( R.id.fragment_user, uf );
+        ft.commit();
     }
 
     @Override

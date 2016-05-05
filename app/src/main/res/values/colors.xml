@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorBackground">#eeeff1</color>
+    <color name="colorBackgroundDarker">#e6e7ea</color>
     <color name="colorPrimary">#0082c6</color>
     <color name="colorPrimaryDark">#005385</color>
     <color name="colorAccent">#f68f32</color>
+    <color name="colorAccentDark">#d67b2f</color>
+    <color name="colorInputText">#ffffff</color>
 </resources>

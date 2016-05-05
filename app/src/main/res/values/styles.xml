@@ -10,33 +10,73 @@
     </style>
 
     <style name="portalTitle">
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">@dimen/portalFontSizeTitle</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="portalSubtitle">
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">@dimen/portalFontSizeSubtitle</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="portalLoginMessageBox">
-        <item name="android:padding">15dp</item>
-        <item name="android:layout_marginTop">5dp</item>
+    <style name="portalLabel">
+        <item name="android:textSize">@dimen/portalFontSizeLabel</item>
+        <item name="android:paddingTop">10dp</item>
     </style>
 
-    <style name="portalLoginMessageBoxTitle">
-        <item name="android:textSize">20dp</item>
+    <style name="portalUserHeader">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="portalUserHeader.Code">
+        <item name="android:textSize">@dimen/portalFontSizeLabel</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="portalUserHeader.Name">
+        <item name="android:textSize">@dimen/portalFontSizeSubtitle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorInputText</item>
+    </style>
+
+    <style name="portalBox">
+        <item name="android:background">@drawable/portal_box_shape</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="portalMessageBox" parent="portalBox">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="portalMessageBoxTitle">
+        <item name="android:textSize">@dimen/portalFontSizeSubtitle</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="portalLoginMessageBoxText">
-        <item name="android:textSize">12dp</item>
+    <style name="portalMessageBoxText">
+        <item name="android:textSize">@dimen/portalFontSizeDefault</item>
     </style>
 
     <style name="portalInput">
         <item name="android:background">@drawable/portal_input_shape</item>
+        <item name="android:textCursorDrawable">@drawable/portal_input_cursor_shape</item>
+        <item name="android:textColor">@color/colorInputText</item>
+    </style>
+
+    <style name="portalButton" parent="portalInput">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:background">@drawable/portal_button_shape</item>
     </style>
 
 </resources>

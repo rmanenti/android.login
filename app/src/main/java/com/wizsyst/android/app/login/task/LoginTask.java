@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -94,10 +95,14 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     protected Boolean doInBackground( String... params ) {
 
         if ( usuario == null || TextUtils.isEmpty( usuario.getUsuario() ) || TextUtils.isEmpty( usuario.getSenha() ) ) {
+
+            erro = new Erro( "A0000", context.getString( R.string.A0000 ) );
             return false;
         }
 
         if ( !Service.isNetworkConnectionAvailable( context ) ) {
+
+            erro = new Erro( "A0001", context.getString( R.string.A0001 ) );
             return false;
         }
 
@@ -137,19 +142,27 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
             publishProgress( context.getString( R.string.retrievingData ) );
 
-            in  = conn.getInputStream();
+            if ( response == 200 ) {
 
-            data = Http.readString( in );
+                in = conn.getInputStream();
 
-            Gson gs = new Gson();
+                data = Http.readString( in );
 
-            erro = gs.fromJson( data, Erro.class );
+                Gson gs = new Gson();
 
-            if ( erro != null && erro.getCodigo() != null ) {
-                return false;
+                erro = gs.fromJson(data, Erro.class);
+
+                if ( erro != null && erro.getCodigo() != null ) {
+                    return false;
+                }
+                else {
+                    usuario = gs.fromJson(data, UsuarioPortal.class);
+                }
             }
             else {
-                usuario = gs.fromJson( data, UsuarioPortal.class );
+
+                erro = new Erro( "A0002", context.getString( R.string.A0002 ) );
+                return false;
             }
         }
         catch( SocketTimeoutException e ) {
@@ -198,16 +211,25 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             Intent it = new Intent( context, MainActivity.class );
             it.putExtra( USER, usuario );
             context.startActivity( it );
-
-            Toast.makeText( context, context.getString( R.string.loginSuccessful ), Toast.LENGTH_SHORT ).show();
         }
         else {
 
             session.destroy();
 
+            Handler messageBoxHandler = new Handler();
+            Runnable messageBoxRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    messageBox.setVisibility( View.GONE );
+                }
+            };
+
             messageBox.setVisibility( View.VISIBLE );
             title.setText( erro.getCodigo() );
             message.setText( erro.getMensagem() );
+
+            messageBoxHandler.removeCallbacks( messageBoxRunnable );
+            messageBoxHandler.postDelayed( messageBoxRunnable, 5000 );
         }
 
         progressDialog.dismiss();

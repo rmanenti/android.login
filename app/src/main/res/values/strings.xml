@@ -16,5 +16,10 @@
     <string name="loginSuccessful">Login successful.</string>
     <string name="noConnectionAvailable">No network connection available.</string>
     <string name="connectionEstablished">Connection established...</string>
+    <string name="couldNotConnectToService">Could not connect to service. Please, try again.</string>
+    <string name="userOrPasswordNotInformed">The username or password were not informed.</string>
     <string name="retrievingData">Retrieving data...</string>
+    <string name="A0000">@string/userOrPasswordNotInformed</string>
+    <string name="A0001">@string/noConnectionAvailable</string>
+    <string name="A0002">@string/couldNotConnectToService</string>
 </resources>
