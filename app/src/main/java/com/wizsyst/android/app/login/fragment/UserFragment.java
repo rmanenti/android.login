@@ -1,22 +1,28 @@
 package com.wizsyst.android.app.login.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.model.UsuarioPortal;
+import com.wizsyst.android.app.login.model.Usuario;
 
 /**
  * Created by rmanenti on 05/05/2016.
  */
 public class UserFragment extends Fragment {
 
-    private UsuarioPortal user;
+    private static final String TAG = "Fragment.UserFragment";
+
+    private Usuario user;
 
     private TextView code,
                      name;
@@ -25,25 +31,50 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Bundle ba = getArguments();
+        Log.i( TAG, "onCreateView" );
 
-        code = ( TextView ) getActivity().findViewById( R.id.uh_code );
-        name = ( TextView ) getActivity().findViewById( R.id.uh_name );
-
-        if ( ba != null && ba.containsKey( "usuario" ) ) {
-            setUser( ( UsuarioPortal ) getArguments().getParcelable( "usuario" ) );
-        }
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false);
     }
 
-    public void setUser( UsuarioPortal user ) {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        Log.i( TAG, "onViewCreated" );
+
+        code = ( TextView ) getActivity().findViewById( R.id.uh_code );
+        name = ( TextView ) getActivity().findViewById( R.id.uh_name );
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+
+        Log.i( TAG, "onActivityCreated" );
+
+        Bundle ba = getArguments();
+
+        if ( user == null && ba != null && ba.containsKey( Usuario.TAG ) ) {
+            setUser( ( Usuario ) getArguments().getParcelable( Usuario.TAG ) );
+        }
+    }
+
+    /**
+     * Sets the user object related to this fragment.
+     * @param user
+     */
+    public void setUser( Usuario user ) {
 
         this.user = user;
+        display();
+    }
 
-        code.setText( user.getCodMatricula() );
-        name.setText( user.getNome() );
+    private void display() {
 
+        if ( user != null ) {
+
+            code.setText( user.getCodMatricula() );
+            name.setText( user.getNome() );
+        }
     }
 }

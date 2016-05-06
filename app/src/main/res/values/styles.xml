@@ -28,24 +28,27 @@
 
     <style name="portalUserHeader">
         <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
     </style>
 
     <style name="portalUserHeader.Code">
-        <item name="android:textSize">@dimen/portalFontSizeLabel</item>
+        <item name="android:textSize">@dimen/portalFontSizeMedium</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
     </style>
 
     <style name="portalUserHeader.Name">
-        <item name="android:textSize">@dimen/portalFontSizeSubtitle</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/portalFontSizeMedium</item>
         <item name="android:textColor">@color/colorInputText</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
     </style>
 
     <style name="portalBox">
-        <item name="android:background">@drawable/portal_box_shape</item>
+        <item name="android:background">@drawable/shape_portal_box</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:padding">10dp</item>
     </style>
@@ -66,8 +69,8 @@
     </style>
 
     <style name="portalInput">
-        <item name="android:background">@drawable/portal_input_shape</item>
-        <item name="android:textCursorDrawable">@drawable/portal_input_cursor_shape</item>
+        <item name="android:background">@drawable/shape_portal_input</item>
+        <item name="android:textCursorDrawable">@drawable/shape_portal_input_cursor</item>
         <item name="android:textColor">@color/colorInputText</item>
     </style>
 
@@ -76,7 +79,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">15dp</item>
-        <item name="android:background">@drawable/portal_button_shape</item>
+        <item name="android:background">@drawable/shape_portal_button</item>
     </style>
 
 </resources>

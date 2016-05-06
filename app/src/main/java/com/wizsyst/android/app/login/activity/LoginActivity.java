@@ -8,12 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.wizsyst.android.app.login.task.LoginTask;
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.model.UsuarioPortal;
+import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.session.SessionManager;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String TAG = "LoginActivity";
+    public static final String TAG = "Activity.LoginActivity";
 
     protected EditText inputUsername,
                        inputPassword;
@@ -38,8 +38,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         messageBox    = findViewById( R.id.mb );
 
-        Log.i( TAG, TAG + ".onCreate" );
-
         if ( session != null ) {
             session.destroy();
         }
@@ -63,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         session = new SessionManager( getBaseContext() );
 
-        lt = new LoginTask( LoginActivity.this, session, new UsuarioPortal( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
+        lt = new LoginTask( LoginActivity.this, session, new Usuario( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
         lt.execute();
     }
 }

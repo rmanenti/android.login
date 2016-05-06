@@ -1,9 +1,15 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="portalFontSizeDefault">12dp</dimen>
+    <dimen name="portalFontSizeMedium">16dp</dimen>
+    <dimen name="portalFontSizeLarge">20dp</dimen>
+    <dimen name="portalFontSizeXLarge">24dp</dimen>
+    <dimen name="portalFontSizeXXLarge">28dp</dimen>
+
+    <dimen name="portalFontSizeTitle">@dimen/portalFontSizeXXLarge</dimen>
+    <dimen name="portalFontSizeSubtitle">@dimen/portalFontSizeXLarge</dimen>
+    <dimen name="portalFontSizeLabel">@dimen/portalFontSizeLarge</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="portalFontSizeTitle">30dp</dimen>
-    <dimen name="portalFontSizeSubtitle">25dp</dimen>
-    <dimen name="portalFontSizeLabel">20dp</dimen>
-    <dimen name="portalFontSizeDefault">12dp</dimen>
 </resources>

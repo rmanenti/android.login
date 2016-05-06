@@ -5,6 +5,8 @@ package com.wizsyst.android.app.login.model;
  */
 public class Erro {
 
+    public static final String TAG = "erro";
+
     private String codigo,
                    mensagem,
                    correcao;

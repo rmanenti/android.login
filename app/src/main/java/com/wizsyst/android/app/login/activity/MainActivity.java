@@ -3,6 +3,7 @@ package com.wizsyst.android.app.login.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.fragment.UserFragment;
 import com.wizsyst.android.app.login.model.Usuario;
-import com.wizsyst.android.app.login.model.UsuarioPortal;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 
 /**
@@ -21,10 +21,12 @@ import com.wizsyst.android.app.login.utilities.ActivityUtils;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "Activity.MainActivity";
+
     private TextView title;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( @Nullable Bundle savedInstanceState ) {
 
         super.onCreate( savedInstanceState );
 
@@ -33,28 +35,21 @@ public class MainActivity extends AppCompatActivity {
         title = ( TextView ) findViewById( R.id.title );
 
         Intent it = getIntent();
-        UsuarioPortal usuario = ( UsuarioPortal ) it.getParcelableExtra( "usuario" );
+        Usuario usuario = ( Usuario ) it.getParcelableExtra( Usuario.TAG );
 
-        title.setText( String.format( "IdUsua = %s, IdServ = %s, Usuario = %s, CodMatricula = %s, DigMatricula = %s, Nome = %s, Sessao = %s ",
-                                            usuario.getIdUser().toString(),
-                                            usuario.getIdServ().toString(),
-                                            usuario.getUsuario(),
-                                            usuario.getCodMatricula(),
-                                            usuario.getDigMatricula(),
-                                            usuario.getNome(),
-                                            usuario.getSessao() ) );
+        if ( savedInstanceState == null ) {
 
-        UserFragment uf;
+            Bundle arguments = new Bundle();
+            arguments.putParcelable( Usuario.TAG, usuario );
 
-        Bundle arguments = new Bundle();
-        arguments.putParcelable( "usuario", usuario );
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        uf = new UserFragment();
-        uf.setArguments( arguments );
+            UserFragment uf = new UserFragment();
+            uf.setArguments( arguments );
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace( R.id.fragment_user, uf );
-        ft.commit();
+            ft.replace( R.id.fragment_user, uf );
+            ft.commit();
+        }
     }
 
     @Override

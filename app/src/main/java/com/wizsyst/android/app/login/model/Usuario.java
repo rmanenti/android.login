@@ -3,73 +3,81 @@ package com.wizsyst.android.app.login.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
- * Created by rmanenti on 22/04/2016.
+ * Created by rmanenti on 29/04/2016.
  */
 public class Usuario implements Parcelable {
 
-    private Long id;
+    public static final String TAG = "usuario";
 
-    private String login,
-                   password,
-                   nome;
+    private Long idUser,
+                 idServ;
 
-    private boolean deletado,
-                    bloqueado;
+    private String usuario,
+                   codMatricula,
+                   digMatricula,
+                   nome,
+                   sessao;
+
+    private transient String senha;
 
     public Usuario() {}
 
-    public Usuario(String login, String password ) {
+    public Usuario(String usuario, String senha ) {
 
-        this.login    = login;
-        this.password = password;
+        this.usuario = usuario;
+        this.senha   = senha;
     }
 
-    public Usuario(String login, String password, String nome ) {
+    private Usuario(Parcel in ) {
 
-        this( login, password );
-        this.nome = nome;
+        idUser       = in.readLong();
+        idServ       = in.readLong();
+        usuario      = in.readString();
+        codMatricula = in.readString();
+        digMatricula = in.readString();
+        nome         = in.readString();
+        sessao       = in.readString();
     }
 
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    private Usuario( Parcel in ) {
-
-        id       = in.readLong();
-        login    = in.readString();
-        password = in.readString();
-        nome     = in.readString();
-
-        boolean[] b = new boolean[ 2 ];
-        in.readBooleanArray( b );
-
-        deletado  = b[ 0 ];
-        bloqueado = b[ 1 ];
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public Long getId() {
-        return id;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getIdServ() {
+        return idServ;
     }
 
-    public String getLogin() {
-        return login;
+    public void setIdServ(Long idServ) {
+        this.idServ = idServ;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getCodMatricula() {
+        return codMatricula;
+    }
+
+    public void setCodMatricula(String codMatricula) {
+        this.codMatricula = codMatricula;
+    }
+
+    public String getDigMatricula() {
+        return digMatricula;
+    }
+
+    public void setDigMatricula(String digMatricula) {
+        this.digMatricula = digMatricula;
     }
 
     public String getNome() {
@@ -80,20 +88,20 @@ public class Usuario implements Parcelable {
         this.nome = nome;
     }
 
-    public boolean isDeletado() {
-        return deletado;
+    public String getSessao() {
+        return sessao;
     }
 
-    public void setDeletado(boolean deletado) {
-        this.deletado = deletado;
+    public void setSessao(String sessao) {
+        this.sessao = sessao;
     }
 
-    public boolean isBloqueado() {
-        return bloqueado;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setBloqueado(boolean bloqueado) {
-        this.bloqueado = bloqueado;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     @Override
@@ -105,41 +113,51 @@ public class Usuario implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
 
-        out.writeLong( id );
-        out.writeString( login );
-        out.writeString( password );
+        out.writeLong( idUser );
+        out.writeLong( idServ );
+        out.writeString( usuario );
+        out.writeString( codMatricula );
+        out.writeString( digMatricula );
         out.writeString( nome );
-        out.writeBooleanArray( new boolean[] { deletado, bloqueado } );
+        out.writeString( sessao );
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
     public static final Parcelable.Creator<Usuario> CREATOR = new Parcelable.Creator<Usuario>() {
 
-        public Usuario createFromParcel(Parcel in) {
+        public Usuario createFromParcel(Parcel in ) {
             return new Usuario( in );
         }
 
-        public Usuario[] newArray( int size ) {
+        public Usuario[] newArray(int size ) {
             return new Usuario[ size ];
         }
     };
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals( Object o ) {
 
-        Usuario user = (Usuario) o;
+        if ( this == o ) {
+            return true;
+        }
 
-        if (!id.equals(user.id)) return false;
-        return login.equals(user.login);
+        if ( o == null || getClass() != o.getClass() ) {
+            return false;
+        }
 
+        Usuario that = (Usuario) o;
+
+        if (!idUser.equals(that.idUser)) return false;
+        if (idServ != null ? !idServ.equals(that.idServ) : that.idServ != null) return false;
+
+        return usuario.equals(that.usuario);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + login.hashCode();
+        int result = idUser.hashCode();
+        result = 31 * result + (idServ != null ? idServ.hashCode() : 0);
+        result = 31 * result + usuario.hashCode();
         return result;
     }
 }

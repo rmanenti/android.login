@@ -1,9 +1,5 @@
 package com.wizsyst.android.app.login.task;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,33 +9,23 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.activity.LoginActivity;
 import com.wizsyst.android.app.login.activity.MainActivity;
 import com.wizsyst.android.app.login.model.Erro;
-import com.wizsyst.android.app.login.model.Usuario;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-import com.wizsyst.android.app.login.model.UsuarioPortal;
+import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
-import com.wizsyst.android.app.login.utilities.xml.Xml;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 /**
  * Created by rmanenti on 22/04/2016.
@@ -64,14 +50,14 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     private ProgressDialog progressDialog;
 
     private SessionManager session;
-    private UsuarioPortal usuario;
+    private Usuario usuario;
     private Erro erro;
 
 
     private Long startTime,
                  endTime;
 
-    public LoginTask(Context context, SessionManager session, UsuarioPortal usuario ) {
+    public LoginTask(Context context, SessionManager session, Usuario usuario ) {
 
         this.context = context;
         this.session = session;
@@ -156,7 +142,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                     return false;
                 }
                 else {
-                    usuario = gs.fromJson(data, UsuarioPortal.class);
+                    usuario = gs.fromJson(data, Usuario.class);
                 }
             }
             else {
