@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+    For some nefarious reason it is necessary to place a FrameLayout as a placeholder for the fragment and replace
+    it when the activity is created. Otherwise, the fragment will be created several times.
+    See: https://guides.codepath.com/android/Creating-and-Using-Fragments
+    -->
+    <FrameLayout android:id="@+id/fragment_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/portalBox">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0"
+            android:stretchColumns="1"
+            style="@style/portalDefaultTable">
+
+            <TableRow style="@style/portalDefaultTable.Row">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year"
+                    style="@style/portalDefaultTable.Text"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/month"
+                    style="@style/portalDefaultTable.Text"/>
+
+            </TableRow>
+
+            <TableRow style="@style/portalDefaultTable.Row">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/portalDefaultTableSpinner"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/portalSpinner"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sheet"
+            style="@style/portalDefaultTable.Text"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/portalInput"/>
+
+        <Button
+            android:id="@+id/button"
+            android:text="@string/query"
+            style="@style/portalButton"/>
+
+    </LinearLayout>
+
+</LinearLayout>

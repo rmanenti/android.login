@@ -8,11 +8,15 @@ import android.preference.PreferenceManager;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by rmanenti on 04/05/2016.
  */
 public class SessionManager {
+
+    private static SessionManager sessionManager;
 
     // Shared Preferences
     private SharedPreferences sharedPreferences;
@@ -23,6 +27,9 @@ public class SessionManager {
     // Context
     private Context context;
 
+    // Session parameters
+    private Map<String, Object> parameteres;
+
     // Mode
     private Integer PRIVATE_MODE = 0;
 
@@ -32,7 +39,25 @@ public class SessionManager {
                                 START  = "start",
                                 PERIOD = "period";
 
-    public SessionManager( Context context ) {
+    public static final SessionManager getInstance( Context context ) {
+
+        if ( sessionManager == null ) {
+            sessionManager = new SessionManager( context );
+        }
+
+        return sessionManager;
+    }
+
+    public static final SessionManager getInstance() {
+
+        if ( sessionManager != null ) {
+            return sessionManager;
+        }
+
+        return null;
+    }
+
+    private SessionManager( Context context ) {
 
         this.context = context;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences( context );
@@ -61,6 +86,24 @@ public class SessionManager {
         return editor.commit();
     }
 
+    public void addParameter( String name, Object value ) {
+
+        if ( parameteres == null ) {
+            parameteres = new HashMap<>();
+        }
+
+        parameteres.put( name, value );
+    }
+
+    public Object getParameter( String name ) {
+
+        if ( parameteres != null ) {
+            return parameteres.get( name );
+        }
+
+        return null;
+    }
+
     /**
      * Destroys the session previously created.
      */
@@ -68,6 +111,9 @@ public class SessionManager {
 
         editor.clear();
         editor.commit();
+
+        parameteres.clear();
+        sessionManager = null;
     }
 
     public void destroy( Class<? extends Activity> startActivity ) {

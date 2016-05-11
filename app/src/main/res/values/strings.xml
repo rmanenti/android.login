@@ -11,15 +11,24 @@
     <string name="loading">Loading</string>
     <string name="processing">Processing</string>
     <string name="loggingIn">Logging in</string>
-    <string name="erro">Error</string>
+    <string name="error">Error</string>
     <string name="loginUnsuccessful">Could not login.</string>
     <string name="loginSuccessful">Login successful.</string>
     <string name="noConnectionAvailable">No network connection available.</string>
     <string name="connectionEstablished">Connection established...</string>
     <string name="couldNotConnectToService">Could not connect to service. Please, try again.</string>
     <string name="userOrPasswordNotInformed">The username or password were not informed.</string>
+    <string name="userNotFoundToExecuteAction">User not found to execute requested action.</string>
     <string name="retrievingData">Retrieving data...</string>
+    <string name="paycheckQuery">Paycheck Query</string>
+    <string name="year">Year</string>
+    <string name="selectYear">Select year</string>
+    <string name="month">Month</string>
+    <string name="selectMonth">Select year</string>
+    <string name="sheet">Sheet</string>
+    <string name="query">Query</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>
+    <string name="A0003">@string/userNotFoundToExecuteAction</string>
 </resources>

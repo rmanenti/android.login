@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Portal do Servidor (SLEO)</string>
+    <string name="title">Portal do Servidor</string>
+    <string name="subtitle">São Leopoldo</string>
+    <string name="username">Matrícula</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="access">Acessar</string>
+    <string name="wait">Espere</string>
+    <string name="loading">Carregando</string>
+    <string name="processing">Processando</string>
+    <string name="loggingIn">Autenticando</string>
+    <string name="error">Erro</string>
+    <string name="loginUnsuccessful">Não foi possível acesar.</string>
+    <string name="loginSuccessful">Login bem sucedido.</string>
+    <string name="noConnectionAvailable">Nenhum conexão com a rede disponível.</string>
+    <string name="connectionEstablished">Conexão estabelecida...</string>
+    <string name="couldNotConnectToService">Não foi possível conectar ao servidor. Por favor, tente novamente.</string>
+    <string name="userOrPasswordNotInformed">A matrícula ou senha não foram informadas.</string>
+    <string name="userNotFoundToExecuteAction">Usuário não encontrado para realizar a ação solicitada.</string>
+    <string name="retrievingData">Recuperando dados...</string>
+    <string name="paycheckQuery">Consultar Contracheque</string>
+    <string name="year">Ano</string>
+    <string name="selectYear">Selecione o ano</string>
+    <string name="month">Mês</string>
+    <string name="selectMonth">Selecione o mês</string>
+    <string name="sheet">Folha</string>
+    <string name="query">Consultar</string>
+    <string name="A0000">@string/userOrPasswordNotInformed</string>
+    <string name="A0001">@string/noConnectionAvailable</string>
+    <string name="A0002">@string/couldNotConnectToService</string>
+    <string name="A0003">@string/userNotFoundToExecuteAction</string>
+</resources>

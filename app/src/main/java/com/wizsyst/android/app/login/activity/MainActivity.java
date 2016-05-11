@@ -1,25 +1,25 @@
 package com.wizsyst.android.app.login.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
+import com.wizsyst.android.app.login.activity.base.BaseActivity;
+import com.wizsyst.android.app.login.activity.contracheque.ConsultaActivity;
 import com.wizsyst.android.app.login.fragment.UserFragment;
 import com.wizsyst.android.app.login.model.Usuario;
+import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 
 /**
  * Created by rmanenti on 22/04/2016.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static final String TAG = "Activity.MainActivity";
 
@@ -34,13 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         title = ( TextView ) findViewById( R.id.title );
 
-        Intent it = getIntent();
-        Usuario usuario = ( Usuario ) it.getParcelableExtra( Usuario.TAG );
-
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putParcelable( Usuario.TAG, usuario );
+            arguments.putParcelable( Usuario.TAG, ( Usuario ) SessionManager.getInstance().getParameter( Usuario.TAG ));
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -67,7 +64,14 @@ public class MainActivity extends AppCompatActivity {
         switch ( item.getItemId() ) {
 
             case R.id.menu_logout :
+
                 ActivityUtils.start( getBaseContext(), LoginActivity.class );
+                break;
+
+            case R.id.menu_paycheck_query :
+
+                ActivityUtils.start( getBaseContext(), ConsultaActivity.class );
+                break;
         }
 
         return true;
