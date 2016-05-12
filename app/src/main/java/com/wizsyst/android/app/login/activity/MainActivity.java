@@ -12,16 +12,16 @@ import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.activity.base.BaseActivity;
 import com.wizsyst.android.app.login.activity.contracheque.ConsultaActivity;
 import com.wizsyst.android.app.login.fragment.UserFragment;
-import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 
 /**
  * Created by rmanenti on 22/04/2016.
  */
 public class MainActivity extends BaseActivity {
 
-    public static final String TAG = "Activity.MainActivity";
+    public static final String TAG = "MainActivity";
 
     private TextView title;
 
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putParcelable( Usuario.TAG, ( Usuario ) SessionManager.getInstance().getParameter( Usuario.TAG ));
+            arguments.putSerializable( "usuario", ( BeanUsuario ) SessionManager.getInstance().getParameter( "usuario" ) );
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -61,17 +61,29 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Class activity = this.getClass();
+
         switch ( item.getItemId() ) {
 
-            case R.id.menu_logout :
+            case R.id.menu_main :
 
-                ActivityUtils.start( getBaseContext(), LoginActivity.class );
+                activity = MainActivity.class;
                 break;
 
             case R.id.menu_paycheck_query :
 
-                ActivityUtils.start( getBaseContext(), ConsultaActivity.class );
+                activity = ConsultaActivity.class;
                 break;
+
+            case R.id.menu_logout :
+
+                activity = LoginActivity.class;
+                break;
+
+        }
+
+        if ( !this.getClass().isAssignableFrom( activity ) ) {
+            ActivityUtils.start(getBaseContext(), activity );
         }
 
         return true;

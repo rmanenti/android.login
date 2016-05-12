@@ -21,11 +21,14 @@
     <string name="userNotFoundToExecuteAction">Usuário não encontrado para realizar a ação solicitada.</string>
     <string name="retrievingData">Recuperando dados...</string>
     <string name="paycheckQuery">Consultar Contracheque</string>
+    <string name="clickToQueryThePaycheck">Clique para consultar o contracheque.</string>
+    <string name="main">Principal</string>
     <string name="year">Ano</string>
     <string name="selectYear">Selecione o ano</string>
     <string name="month">Mês</string>
     <string name="selectMonth">Selecione o mês</string>
-    <string name="sheet">Folha</string>
+    <string name="payroll">Folha de Pagamento</string>
+    <string name="selectPayroll">Selecione a folha de pagamento</string>
     <string name="query">Consultar</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>

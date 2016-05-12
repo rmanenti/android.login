@@ -22,12 +22,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.List;
 
-import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 
 /**
  * Created by rmanenti on 22/04/2016.
@@ -57,17 +56,21 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
     private ProgressDialog progressDialog;
 
-    private Usuario usuario;
+    private BeanUsuario usuario;
     private Erro erro;
 
+    String user,
+           password;
 
     private Long startTime,
                  endTime;
 
-    public LoginTask(Context context, Usuario usuario ) {
+    public LoginTask(Context context, String u, String p ) {
 
         this.context = context;
-        this.usuario = usuario;
+
+        user     = u;
+        password = p;
 
         caller  = ( Activity ) context;
         messageBox = ( View ) caller.findViewById( R.id.mb );
@@ -140,7 +143,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
     private boolean getUser() {
 
-        if ( usuario == null || TextUtils.isEmpty( usuario.getUsuario() ) || TextUtils.isEmpty( usuario.getSenha() ) ) {
+        if ( TextUtils.isEmpty( user ) || TextUtils.isEmpty( password ) ) {
 
             erro = new Erro( "A0000", context.getString( R.string.A0000 ) );
             return false;
@@ -150,11 +153,11 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 .append( "?" )
                 .append( USER_LOGIN )
                 .append( "=" )
-                .append( usuario.getUsuario() )
+                .append( user )
                 .append( "&" )
                 .append( USER_PASSWORD )
                 .append( "=" )
-                .append( usuario.getSenha() )
+                .append( password )
                 .toString();
 
         Log.i( "LOGIN.uri", uri );
@@ -197,8 +200,8 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 }
                 else {
 
-                    usuario = gs.fromJson(data, Usuario.class);
-                    SessionManager.getInstance().addParameter( Usuario.TAG, usuario );
+                    usuario = gs.fromJson(data, BeanUsuario.class);
+                    SessionManager.getInstance().addParameter( "usuario", usuario );
                 }
             }
             else {
@@ -235,7 +238,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
     private boolean getYears() {
 
-        if ( usuario == null || usuario.getIdServ() == null ) {
+        if ( usuario == null || usuario.getIdServ() < 0 ) {
 
             erro = new Erro( "A0003", context.getString( R.string.A0003 ) );
             return false;

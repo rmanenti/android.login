@@ -1,1 +1,1 @@
-include ':app', ':wizsystems.android.utilities'
+include ':app'

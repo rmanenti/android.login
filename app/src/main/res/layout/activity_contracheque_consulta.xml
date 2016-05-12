@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         style="@style/portalBox">
 
         <TableLayout
@@ -44,17 +45,27 @@
 
             <TableRow style="@style/portalDefaultTable.Row">
 
-                <android.support.v7.widget.AppCompatSpinner
+                <TextView
                     android:id="@+id/year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/portalDefaultTableSpinner"/>
+                    android:cursorVisible="false"
+                    android:freezesText="true"
+                    android:text="@string/year"
+                    android:hint="@string/selectYear"
+                    android:contentDescription="@string/selectYear"
+                    style="@style/portalDefaultTableInput" />
 
-                <android.support.v7.widget.AppCompatSpinner
+                <TextView
                     android:id="@+id/month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/portalSpinner"/>
+                    android:cursorVisible="false"
+                    android:freezesText="true"
+                    android:text="@string/month"
+                    android:hint="@string/selectMonth"
+                    android:contentDescription="@string/selectMonth"
+                    style="@style/portalDefaultTableInput"/>
 
             </TableRow>
 
@@ -63,18 +74,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sheet"
+            android:text="@string/payroll"
             style="@style/portalDefaultTable.Text"/>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/sheet"
+        <TextView
+            android:id="@+id/payroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/portalInput"/>
+            android:cursorVisible="false"
+            android:freezesText="true"
+            android:text="@string/payroll"
+            android:hint="@string/selectPayroll"
+            android:contentDescription="@string/selectPayroll"
+            style="@style/portalDefaultTableInput"/>
 
         <Button
             android:id="@+id/button"
             android:text="@string/query"
+            android:hint="@string/clickToQueryThePaycheck"
+            android:contentDescription="@string/clickToQueryThePaycheck"
             style="@style/portalButton"/>
 
     </LinearLayout>

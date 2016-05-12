@@ -28,7 +28,7 @@ public class SessionManager {
     private Context context;
 
     // Session parameters
-    private Map<String, Object> parameteres;
+    private Map<String, Object> parameters;
 
     // Mode
     private Integer PRIVATE_MODE = 0;
@@ -64,6 +64,10 @@ public class SessionManager {
         editor            = sharedPreferences.edit();
     }
 
+    public static final boolean isSessionCreated() {
+        return ( sessionManager != null );
+    }
+
     /**
      * Attempts to create a session for logging the user in the application.
      *
@@ -88,17 +92,17 @@ public class SessionManager {
 
     public void addParameter( String name, Object value ) {
 
-        if ( parameteres == null ) {
-            parameteres = new HashMap<>();
+        if ( parameters == null ) {
+            parameters = new HashMap<>();
         }
 
-        parameteres.put( name, value );
+        parameters.put( name, value );
     }
 
     public Object getParameter( String name ) {
 
-        if ( parameteres != null ) {
-            return parameteres.get( name );
+        if ( parameters != null ) {
+            return parameters.get( name );
         }
 
         return null;
@@ -109,10 +113,16 @@ public class SessionManager {
      */
     public void destroy() {
 
-        editor.clear();
-        editor.commit();
+        if ( editor != null ) {
 
-        parameteres.clear();
+            editor.clear();
+            editor.commit();
+        }
+
+        if ( parameters != null ) {
+            parameters.clear();
+        }
+
         sessionManager = null;
     }
 

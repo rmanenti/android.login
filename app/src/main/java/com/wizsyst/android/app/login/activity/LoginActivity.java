@@ -1,8 +1,6 @@
 package com.wizsyst.android.app.login.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,12 +8,11 @@ import android.widget.EditText;
 import com.wizsyst.android.app.login.activity.base.BaseActivity;
 import com.wizsyst.android.app.login.task.LoginTask;
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.model.Usuario;
 import com.wizsyst.android.app.login.session.SessionManager;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
-    public static final String TAG = "Activity.LoginActivity";
+    public static final String TAG = "LoginActivity";
 
     protected EditText inputUsername,
                        inputPassword;
@@ -63,7 +60,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         session = SessionManager.getInstance( getBaseContext() );
 
-        lt = new LoginTask( LoginActivity.this, new Usuario( inputUsername.getText().toString(), inputPassword.getText().toString() ) );
+        lt = new LoginTask( LoginActivity.this, inputUsername.getText().toString(), inputPassword.getText().toString() );
         lt.execute();
     }
 }

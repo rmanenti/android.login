@@ -21,11 +21,14 @@
     <string name="userNotFoundToExecuteAction">User not found to execute requested action.</string>
     <string name="retrievingData">Retrieving data...</string>
     <string name="paycheckQuery">Paycheck Query</string>
+    <string name="clickToQueryThePaycheck">Click to query the paycheck.</string>
+    <string name="main">Main</string>
     <string name="year">Year</string>
     <string name="selectYear">Select year</string>
     <string name="month">Month</string>
     <string name="selectMonth">Select year</string>
-    <string name="sheet">Sheet</string>
+    <string name="payroll">Payroll</string>
+    <string name="selectPayroll">Select the payroll.</string>
     <string name="query">Query</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>

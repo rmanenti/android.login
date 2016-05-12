@@ -75,15 +75,15 @@
     </style>
 
     <style name="portalSpinner" parent="portalInput">
-        <item name="android:spinnerMode">dialog</item>
-        <item name="android:popupBackground">@color/colorInputText</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:spinnerItemStyle">@style/portalSpinnerItemStyle</item>
+        <item name="android:popupBackground">@color/colorAccent</item>
+    </style>
+
+    <style name="portalSpinnerItemStyle">
         <item name="android:textColor">@color/colorInputText</item>
     </style>
-
-    <style name="portalSpinnerText">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-    </style>
-
 
     <style name="portalButton" parent="portalInput">
         <item name="android:layout_gravity">center_horizontal</item>
@@ -102,15 +102,13 @@
         <item name="android:layout_marginRight">8dp</item>
     </style>
 
-    <style name="portalDefaultTable.Input" parent="portalInput">
+    <style name="portalDefaultTableInput" parent="portalInput">
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginRight">8dp</item>
-        <item name="android:padding">0dp</item>
     </style>
 
-    <style name="portalDefaultTableSpinner" parent="portalSpinner">
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginRight">8dp</item>
+    <style name="portalAlertDialogCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@color/colorAccent</item>
     </style>
 
 </resources>

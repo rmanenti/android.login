@@ -1,11 +1,8 @@
 package com.wizsyst.android.app.login.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.model.Usuario;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 
 /**
  * Created by rmanenti on 05/05/2016.
@@ -22,7 +19,7 @@ public class UserFragment extends Fragment {
 
     private static final String TAG = "Fragment.UserFragment";
 
-    private Usuario user;
+    private BeanUsuario user;
 
     private TextView code,
                      name;
@@ -54,8 +51,8 @@ public class UserFragment extends Fragment {
 
         Bundle ba = getArguments();
 
-        if ( user == null && ba != null && ba.containsKey( Usuario.TAG ) ) {
-            setUser( ( Usuario ) getArguments().getParcelable( Usuario.TAG ) );
+        if ( user == null && ba != null && ba.containsKey( "usuario" ) ) {
+            setUser( ( BeanUsuario ) getArguments().getParcelable( "usuario" ) );
         }
     }
 
@@ -63,7 +60,7 @@ public class UserFragment extends Fragment {
      * Sets the user object related to this fragment.
      * @param user
      */
-    public void setUser( Usuario user ) {
+    public void setUser( BeanUsuario user ) {
 
         this.user = user;
         display();
