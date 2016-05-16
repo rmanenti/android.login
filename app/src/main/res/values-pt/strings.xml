@@ -22,6 +22,8 @@
     <string name="retrievingData">Recuperando dados...</string>
     <string name="paycheckQuery">Consultar Contracheque</string>
     <string name="clickToQueryThePaycheck">Clique para consultar o contracheque.</string>
+    <string name="queryingPaycheck">Consultando contracheque solicitado.</string>
+    <string name="invalidPaycheckParameters">Os parâmetros fornecidos para carregar o contracheque são inválidos.</string>
     <string name="main">Principal</string>
     <string name="year">Ano</string>
     <string name="selectYear">Selecione o ano</string>
@@ -34,4 +36,5 @@
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>
     <string name="A0003">@string/userNotFoundToExecuteAction</string>
+    <string name="A0004">@string/invalidPaycheckParameters</string>
 </resources>

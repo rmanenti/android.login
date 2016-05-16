@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.activity.MainActivity;
-import com.wizsyst.android.app.login.model.Ano;
-import com.wizsyst.android.app.login.model.Erro;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +24,8 @@ import java.net.URL;
 import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanErro;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanFolhas;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 
 /**
@@ -33,14 +33,15 @@ import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
  */
 public class LoginTask extends AsyncTask<String, String, Boolean> {
 
-    private static final String USER_URI      = "http://192.168.0.7:8080/WizRest2/webresources/Login",
-                                YEAR_URI      = "http://192.168.0.7:8080/WizRest2/webresources/ContraCheques/anos",
+    private static final String USER_URI      = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/Login",
+                                PAYROLLS_URI  = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/ContraCheques/folhas",
 
                                 USER_LOGIN    = "usuario",
                                 USER_PASSWORD = "senha",
 
-                                YEAR_ID       = "idServ",
-                                YEAR_SESSION  = "sessao",
+                                PAYROLL_ID_SERV = "idServ",
+                                PAYROLL_ID_FILL = "idFill",
+                                PAYROLL_SESSION = "sessao",
 
                                 SESSION       = "session";
 
@@ -57,7 +58,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
     private ProgressDialog progressDialog;
 
     private BeanUsuario usuario;
-    private Erro erro;
+    private BeanErro erro;
 
     String user,
            password;
@@ -91,7 +92,10 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
         if ( !Service.isNetworkConnectionAvailable( context ) ) {
 
-            erro = new Erro( "A0001", context.getString( R.string.A0001 ) );
+            erro = new BeanErro();
+            erro.setCodigo( "A0001" );
+            erro.setMensagem( context.getString( R.string.A0001 ) );
+
             return false;
         }
 
@@ -145,7 +149,10 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
         if ( TextUtils.isEmpty( user ) || TextUtils.isEmpty( password ) ) {
 
-            erro = new Erro( "A0000", context.getString( R.string.A0000 ) );
+            erro = new BeanErro();
+            erro.setCodigo( "A0000" );
+            erro.setMensagem( context.getString( R.string.A0000 ) );
+
             return false;
         }
 
@@ -193,7 +200,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
                 Gson gs = new Gson();
 
-                erro = gs.fromJson(data, Erro.class);
+                erro = gs.fromJson( data, BeanErro.class );
 
                 if ( erro != null && erro.getCodigo() != null ) {
                     return false;
@@ -206,7 +213,10 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             }
             else {
 
-                erro = new Erro( "A0002", context.getString( R.string.A0002 ) );
+                erro = new BeanErro();
+                erro.setCodigo( "A0002" );
+                erro.setMensagem( context.getString( R.string.A0002 ) );
+
                 return false;
             }
         }
@@ -240,22 +250,29 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
         if ( usuario == null || usuario.getIdServ() < 0 ) {
 
-            erro = new Erro( "A0003", context.getString( R.string.A0003 ) );
+            erro = new BeanErro();
+            erro.setCodigo( "A0003" );
+            erro.setMensagem( context.getString( R.string.A0003 ) );
+
             return false;
         }
 
-        String uri = new StringBuilder( YEAR_URI )
+        String uri = new StringBuilder( PAYROLLS_URI )
                 .append( "?" )
-                .append( YEAR_ID )
+                .append( PAYROLL_ID_SERV )
                 .append( "=" )
                 .append( usuario.getIdServ() )
                 .append( "&" )
-                .append( YEAR_SESSION )
+                .append( PAYROLL_ID_FILL )
+                .append( "=" )
+                .append( usuario.getIdFill() )
+                .append( "&" )
+                .append( PAYROLL_SESSION )
                 .append( "=" )
                 .append( usuario.getSessao() )
                 .toString();
 
-        Log.i( "YEAR.uri", uri );
+        Log.i( "PAYROLL.uri", uri );
 
         String data = null;
 
@@ -286,22 +303,25 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
                 data = Http.readString( in );
 
-                Log.i( "YEAR.data", data );
+                Log.i( "PAYROLL.data", data );
 
                 Gson gs = new Gson();
 
-                erro = gs.fromJson(data, Erro.class);
+                erro = gs.fromJson( data, BeanErro.class );
 
                 if ( erro != null && erro.getCodigo() != null ) {
                     return false;
                 }
                 else {
-                    SessionManager.getInstance().addParameter( "anos", gs.fromJson( data, Ano.class ) );
+                    SessionManager.getInstance().addParameter( "folhas", gs.fromJson( data, BeanFolhas.class ) );
                 }
             }
             else {
 
-                erro = new Erro( "A0002", context.getString( R.string.A0002 ) );
+                erro = new BeanErro();
+                erro.setCodigo( "A0002" );
+                erro.setMensagem( context.getString( R.string.A0002 ) );
+
                 return false;
             }
         }

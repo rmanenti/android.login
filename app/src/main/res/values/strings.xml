@@ -22,6 +22,8 @@
     <string name="retrievingData">Retrieving data...</string>
     <string name="paycheckQuery">Paycheck Query</string>
     <string name="clickToQueryThePaycheck">Click to query the paycheck.</string>
+    <string name="queryingPaycheck">Querying requested paycheck.</string>
+    <string name="invalidPaycheckParameters">The given parameters to load paycheck are invalid.</string>
     <string name="main">Main</string>
     <string name="year">Year</string>
     <string name="selectYear">Select year</string>
@@ -34,4 +36,5 @@
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>
     <string name="A0003">@string/userNotFoundToExecuteAction</string>
+    <string name="A0004">@string/invalidPaycheckParameters</string>
 </resources>

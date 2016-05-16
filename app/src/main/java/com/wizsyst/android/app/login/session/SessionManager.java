@@ -132,7 +132,6 @@ public class SessionManager {
         ActivityUtils.start( context, startActivity );
     }
 
-
     public boolean isLogged(){
         return sharedPreferences.getBoolean( LOGGED, false );
     }

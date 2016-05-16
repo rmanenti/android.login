@@ -30,4 +30,14 @@ public class DateUtils {
 
         return months;
     }
+
+    public static String getMonthName( Integer month ) {
+
+        DateFormat df = new SimpleDateFormat( "MMMM" );
+
+        Calendar c = Calendar.getInstance();
+        c.set( Calendar.MONTH, month );
+
+        return df.format( c.getTime() );
+    }
 }

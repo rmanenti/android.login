@@ -52,7 +52,7 @@ public class UserFragment extends Fragment {
         Bundle ba = getArguments();
 
         if ( user == null && ba != null && ba.containsKey( "usuario" ) ) {
-            setUser( ( BeanUsuario ) getArguments().getParcelable( "usuario" ) );
+            setUser( ( BeanUsuario ) getArguments().getSerializable( "usuario" ) );
         }
     }
 

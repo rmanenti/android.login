@@ -23,8 +23,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.contracheque.ConsultaActivity"></activity>
+
+        <activity android:name=".activity.contracheque.ConsultaActivity"
+                  android:parentActivityName=".activity.MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activity.MainActivity" />
+
+        </activity>
+
+        <activity android:name=".activity.contracheque.ContrachequeActivity"
+            android:parentActivityName=".activity.contracheque.ConsultaActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activity.contracheque.ConsultaActivity" />
+
+        </activity>
+
     </application>
 
 </manifest>

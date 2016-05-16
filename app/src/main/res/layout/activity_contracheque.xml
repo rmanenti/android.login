@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+    For some nefarious reason it is necessary to place a FrameLayout as a placeholder for the fragment and replace
+    it when the activity is created. Otherwise, the fragment will be created several times.
+    See: https://guides.codepath.com/android/Creating-and-Using-Fragments
+    -->
+    <FrameLayout android:id="@+id/fragment_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/portalBox">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cc"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

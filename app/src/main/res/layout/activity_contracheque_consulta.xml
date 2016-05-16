@@ -13,88 +13,136 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        style="@style/portalBox">
+        style="@style/portalBox"
+        android:layout_margin="10dp">
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:shrinkColumns="0"
-            android:stretchColumns="1"
-            style="@style/portalDefaultTable">
+            android:orientation="vertical">
 
-            <TableRow style="@style/portalDefaultTable.Row">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="0"
+                android:stretchColumns="1"
+                style="@style/portalDefaultTable">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <TableRow style="@style/portalDefaultTable.Row">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/year"
+                        style="@style/portalDefaultTable.Text"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/month"
+                        style="@style/portalDefaultTable.Text"/>
+
+                </TableRow>
+
+                <TableRow style="@style/portalDefaultTable.Row">
+
+                    <TextView
+                        android:id="@+id/year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:freezesText="true"
+                        android:text="@string/year"
+                        android:hint="@string/selectYear"
+                        android:contentDescription="@string/selectYear"
+                        style="@style/portalDefaultTableInput" />
+
+                    <TextView
+                        android:id="@+id/month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:freezesText="true"
+                        android:text="@string/month"
+                        android:hint="@string/selectMonth"
+                        android:contentDescription="@string/selectMonth"
+                        style="@style/portalDefaultTableInput"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payroll"
+                style="@style/portalDefaultTable.Text"/>
+
+            <TextView
+                android:id="@+id/payroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:freezesText="true"
+                android:text="@string/payroll"
+                android:hint="@string/selectPayroll"
+                android:contentDescription="@string/selectPayroll"
+                style="@style/portalDefaultTableInput"/>
+
+            <Button
+                android:id="@+id/button_paycheck_query"
+                android:text="@string/query"
+                android:hint="@string/clickToQueryThePaycheck"
+                android:contentDescription="@string/clickToQueryThePaycheck"
+                style="@style/portalButton"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mb"
+                style="@style/portalMessageBox">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/year"
-                    style="@style/portalDefaultTable.Text"/>
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/month"
-                    style="@style/portalDefaultTable.Text"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_feedback_black_48dp"
+                        android:id="@+id/mb_icon"/>
 
-            </TableRow>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mb_message">
 
-            <TableRow style="@style/portalDefaultTable.Row">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/mb_message_title"
+                            style="@style/portalMessageBoxTitle"/>
 
-                <TextView
-                    android:id="@+id/year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:freezesText="true"
-                    android:text="@string/year"
-                    android:hint="@string/selectYear"
-                    android:contentDescription="@string/selectYear"
-                    style="@style/portalDefaultTableInput" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:id="@+id/mb_message_text"
+                            style="@style/portalMessageBoxText"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:freezesText="true"
-                    android:text="@string/month"
-                    android:hint="@string/selectMonth"
-                    android:contentDescription="@string/selectMonth"
-                    style="@style/portalDefaultTableInput"/>
+                </LinearLayout>
 
-            </TableRow>
+            </FrameLayout>
 
-        </TableLayout>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/payroll"
-            style="@style/portalDefaultTable.Text"/>
-
-        <TextView
-            android:id="@+id/payroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cursorVisible="false"
-            android:freezesText="true"
-            android:text="@string/payroll"
-            android:hint="@string/selectPayroll"
-            android:contentDescription="@string/selectPayroll"
-            style="@style/portalDefaultTableInput"/>
-
-        <Button
-            android:id="@+id/button"
-            android:text="@string/query"
-            android:hint="@string/clickToQueryThePaycheck"
-            android:contentDescription="@string/clickToQueryThePaycheck"
-            style="@style/portalButton"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

@@ -62,6 +62,7 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 style="@style/portalInput"/>
 
             <TextView
@@ -74,6 +75,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:inputType="textPassword"
                 style="@style/portalInput"/>
 
