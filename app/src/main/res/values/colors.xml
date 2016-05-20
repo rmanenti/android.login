@@ -7,4 +7,7 @@
     <color name="colorAccent">#f68f32</color>
     <color name="colorAccentDark">#d67b2f</color>
     <color name="colorInputText">#ffffff</color>
+    <color name="colorInputTextDarker">#dddddd</color>
+    <color name="colorEarnings">#27ae60</color>
+    <color name="colorDeductions">#c0392b</color>
 </resources>

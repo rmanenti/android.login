@@ -12,17 +12,29 @@
     <style name="portalTitle">
         <item name="android:textSize">@dimen/portalFontSizeTitle</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="portalSubtitle">
         <item name="android:textSize">@dimen/portalFontSizeSubtitle</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="portalText">
+        <item name="android:textSize">@dimen/portalFontSizeDefault</item>
+    </style>
+
+    <style name="portalText.Medium">
+        <item name="android:textSize">@dimen/portalFontSizeMedium</item>
+    </style>
+
+    <style name="portalText.Large">
+        <item name="android:textSize">@dimen/portalFontSizeLarge</item>
     </style>
 
     <style name="portalLabel">
-        <item name="android:textSize">@dimen/portalFontSizeLabel</item>
+        <item name="android:textSize">@dimen/portalFontSizeDefault</item>
         <item name="android:paddingTop">10dp</item>
     </style>
 
@@ -47,16 +59,57 @@
         <item name="android:layout_margin">0dp</item>
     </style>
 
-    <style name="portalBox">
+    <style name="portalDefaultMargin">
+        <item name="android:layout_margin">@dimen/portalMarginDefault</item>
+    </style>
+
+    <style name="portalDefaultPadding">
+        <item name="android:padding">@dimen/portalPaddingDefault</item>
+    </style>
+
+    <style name="portalDefaultSpacing">
+        <item name="android:padding">@dimen/portalPaddingDefault</item>
+        <item name="android:layout_margin">@dimen/portalMarginDefault</item>
+    </style>
+
+    <style name="portalBox" parent="portalDefaultSpacing">
         <item name="android:background">@drawable/shape_portal_box</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="portalBoxNoMargin" parent="portalBox">
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="portalBoxNoPadding" parent="portalBox">
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="portalBoxNoSpacing" parent="portalBox">
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+
+    <style name="portalGridBorderedWrapper">
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:background">@color/colorInputTextDarker</item>
+    </style>
+
+    <style name="portalGridBordered">
+        <item name="android:background">@color/colorInputText</item>
     </style>
 
     <style name="portalMessageBox" parent="portalBox">
         <item name="android:visibility">gone</item>
         <item name="android:layout_margin">10dp</item>
-        <item name="android:padding">10dp</item>
     </style>
 
     <style name="portalMessageBoxTitle">
@@ -94,7 +147,10 @@
     </style>
 
 
-    <style name="portalDefaultTable"></style>
+    <style name="portalDefaultTable">
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
 
     <style name="portalDefaultTable.Row"></style>
 
@@ -115,6 +171,45 @@
         <item name="android:padding">6dp</item>
         <item name="android:textColor">@color/colorInputText</item>
         <item name="android:textSize">@dimen/portalFontSizeLarge</item>
+    </style>
+
+    <style name="portalPaycheck">
+        <item name="android:layout_gravity">left|center_vertical</item>
+    </style>
+
+    <style name="portalPaycheck.Title">
+        <item name="android:textColor">@color/colorEarnings</item>
+        <item name="android:textSize">@dimen/portalFontSizeLarge</item>
+    </style>
+
+    <style name="portalPaycheckLiquid">
+        <item name="android:background">@color/colorInputTextDarker</item>
+    </style>
+
+    <style name="portalPaycheck.Title.Deductions">
+        <item name="android:textColor">@color/colorDeductions</item>
+    </style>
+
+    <style name="portalPaycheck.Text"></style>
+
+    <style name="portalPaycheck.Text.Amount">
+        <item name="android:layout_gravity">right</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="portalPaycheck.Text.Total">
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:textSize">@dimen/portalFontSizeMedium</item>
+    </style>
+
+    <style name="portalPaycheck.Text.Total.Amount">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorInputTextDarker</item>
     </style>
 
 </resources>

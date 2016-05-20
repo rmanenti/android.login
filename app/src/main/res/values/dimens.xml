@@ -10,6 +10,8 @@
     <dimen name="portalFontSizeSubtitle">@dimen/portalFontSizeXLarge</dimen>
     <dimen name="portalFontSizeLabel">@dimen/portalFontSizeLarge</dimen>
 
+    <dimen name="portalPaddingDefault">10dp</dimen>
+    <dimen name="portalMarginDefault">10dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>
