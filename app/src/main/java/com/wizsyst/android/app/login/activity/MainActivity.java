@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( "usuario", ( BeanUsuario ) SessionManager.getInstance().getParameter( "usuario" ) );
+            arguments.putSerializable( getString( R.string.user ), ( BeanUsuario ) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 

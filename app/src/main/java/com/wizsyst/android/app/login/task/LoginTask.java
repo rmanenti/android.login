@@ -33,17 +33,15 @@ import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
  */
 public class LoginTask extends AsyncTask<String, String, Boolean> {
 
-    private static final String USER_URI      = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/Login",
-                                PAYROLLS_URI  = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/ContraCheques/folhas",
+    private static final String URI_USER      = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/Login",
+                                URI_PAYROLLS  = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/ContraCheques/folhas",
 
                                 USER_LOGIN    = "usuario",
                                 USER_PASSWORD = "senha",
 
                                 PAYROLL_ID_SERV = "idServ",
                                 PAYROLL_ID_FILL = "idFill",
-                                PAYROLL_SESSION = "sessao",
-
-                                SESSION       = "session";
+                                PAYROLL_SESSION = "sessao";
 
     private static Long MAX_TIMEOUT      = 25000L,
                         MAX_READ_TIMEOUT = 25000L;
@@ -134,12 +132,15 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 }
             };
 
-            messageBox.setVisibility( View.VISIBLE );
-            title.setText( erro.getCodigo() );
-            message.setText( erro.getMensagem() );
+            if ( erro != null ) {
 
-            messageBoxHandler.removeCallbacks( messageBoxRunnable );
-            messageBoxHandler.postDelayed( messageBoxRunnable, 5000 );
+                messageBox.setVisibility(View.VISIBLE);
+                title.setText(erro.getCodigo());
+                message.setText(erro.getMensagem());
+
+                messageBoxHandler.removeCallbacks(messageBoxRunnable);
+                messageBoxHandler.postDelayed(messageBoxRunnable, 5000);
+            }
         }
 
         progressDialog.dismiss();
@@ -156,7 +157,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             return false;
         }
 
-        String uri = new StringBuilder( USER_URI )
+        String uri = new StringBuilder( URI_USER )
                 .append( "?" )
                 .append( USER_LOGIN )
                 .append( "=" )
@@ -166,8 +167,6 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 .append( "=" )
                 .append( password )
                 .toString();
-
-        Log.i( "LOGIN.uri", uri );
 
         String data = null;
 
@@ -179,6 +178,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
         try {
 
             url = new URL( uri );
+
             conn = ( HttpURLConnection ) url.openConnection();
             conn.setReadTimeout( MAX_READ_TIMEOUT.intValue() );
             conn.setConnectTimeout( MAX_TIMEOUT.intValue() );
@@ -208,7 +208,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 else {
 
                     usuario = gs.fromJson(data, BeanUsuario.class);
-                    SessionManager.getInstance().addParameter( "usuario", usuario );
+                    SessionManager.getInstance().addParameter( context.getString( R.string.user ), usuario );
                 }
             }
             else {
@@ -221,9 +221,19 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             }
         }
         catch( SocketTimeoutException e ) {
+
+            erro = new BeanErro();
+            erro.setCodigo( "A0002" );
+            erro.setMensagem( context.getString( R.string.A0002 ) + "\n" + e.getLocalizedMessage() );
+
             return false;
         }
         catch( IOException ioex ) {
+
+            erro = new BeanErro();
+            erro.setCodigo( "A0002" );
+            erro.setMensagem( context.getString( R.string.A0002 ) + "\n" + ioex.getLocalizedMessage() );
+
             return false;
         }
         finally {
@@ -257,7 +267,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             return false;
         }
 
-        String uri = new StringBuilder( PAYROLLS_URI )
+        String uri = new StringBuilder( URI_PAYROLLS )
                 .append( "?" )
                 .append( PAYROLL_ID_SERV )
                 .append( "=" )
@@ -271,8 +281,6 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 .append( "=" )
                 .append( usuario.getSessao() )
                 .toString();
-
-        Log.i( "PAYROLL.uri", uri );
 
         String data = null;
 
@@ -313,7 +321,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                     return false;
                 }
                 else {
-                    SessionManager.getInstance().addParameter( "folhas", gs.fromJson( data, BeanFolhas.class ) );
+                    SessionManager.getInstance().addParameter( context.getString( R.string.payrolls ), gs.fromJson( data, BeanFolhas.class ) );
                 }
             }
             else {
@@ -326,9 +334,19 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
             }
         }
         catch( SocketTimeoutException e ) {
+
+            erro = new BeanErro();
+            erro.setCodigo( "A0002" );
+            erro.setMensagem( context.getString( R.string.A0002 ) + "\n" + e.getLocalizedMessage() );
+
             return false;
         }
         catch( IOException ioex ) {
+
+            erro = new BeanErro();
+            erro.setCodigo( "A0002" );
+            erro.setMensagem( context.getString( R.string.A0002 ) + "\n" + ioex.getLocalizedMessage() );
+
             return false;
         }
         finally {

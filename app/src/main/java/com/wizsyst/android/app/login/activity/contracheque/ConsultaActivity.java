@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.internal.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,24 +68,13 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
 
         setContentView( R.layout.activity_contracheque_consulta );
 
-        builder = new AlertDialog.Builder( new ContextThemeWrapper( this, R.style.portalAlertDialogCustom ) );
+        builder = new AlertDialog.Builder( this, R.style.portalAlertDialogCustom );
 
-        folhas = ( BeanFolhas ) SessionManager.getInstance().getParameter( "folhas" );
+        folhas = ( BeanFolhas ) SessionManager.getInstance().getParameter( getString( R.string.payrolls ) );
 
         if ( folhas != null && folhas.getFolhas() != null ) {
             load( R.id.year );
         }
-
-        selectionListener = new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //load();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        };
 
         year = ( TextView ) findViewById( R.id.year );
         year.setOnClickListener( new View.OnClickListener() {
@@ -159,7 +147,7 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( "usuario", (BeanUsuario) SessionManager.getInstance().getParameter( "usuario" ));
+            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance().getParameter( getString( R.string.user ) ));
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -327,11 +315,16 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
 
     protected void query() {
 
+        final BeanUsuario usuario = ( ( BeanUsuario ) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
+
         ConsultaContrachequeTask ct = new ConsultaContrachequeTask( this );
         ct.execute( new HashMap<String, Object>() {
             {
-                put( "sessao", ((BeanUsuario) SessionManager.getInstance().getParameter( "usuario" )).getSessao() );
-                put( "idServ", ((BeanUsuario) SessionManager.getInstance().getParameter( "usuario" )).getIdServ() );
+                put( getString( R.string.session ), usuario.getSessao() );
+                put( getString( R.string.month ),    selectedMonth.getMes() );
+                put( getString( R.string.year ),    selectedYear.getAno() );
+                put( getString( R.string.payroll ),  selectedPayroll.getNomeFolha() );
+                put( "idServ", usuario.getIdServ() );
                 put( "idComp", selectedPayroll.getIdComp() );
             }
         } );

@@ -1,40 +1,116 @@
 package com.wizsyst.android.app.login.activity.contracheque;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
 import com.wizsyst.android.app.login.activity.base.BaseActivity;
 import com.wizsyst.android.app.login.fragment.UserFragment;
 import com.wizsyst.android.app.login.session.SessionManager;
+import com.wizsyst.android.app.login.utilities.json.Json;
+import com.wizsyst.android.app.login.utilities.ui.Dialogs;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanContraCheque;
+import com.wizsyst.sigem.mobile.sleo.beans.BeanEventoContraCheque;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.Normalizer;
 
 /**
  * Created by rmanenti on 16/05/2016.
  */
-public class ContrachequeActivity extends BaseActivity {
+public class ContrachequeActivity extends BaseActivity implements View.OnClickListener {
+
+    private String payroll,
+                   paycheck;
+
+    private Integer idComp,
+                    month,
+                    year;
+
+    private Button buttonSave;
+
+    private BeanContraCheque contraCheque;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate( savedInstanceState );
 
-        setContentView(R.layout.activity_contracheque );
+        setContentView( R.layout.activity_contracheque );
 
         Intent it = getIntent();
-        BeanContraCheque contraCheque = ( BeanContraCheque ) it.getSerializableExtra( "contracheque" );
 
-        TextView cc = ( TextView ) findViewById( R.id.cc );
-        cc.setText( contraCheque.getCargo() );
+        idComp   = ( Integer ) it.getIntExtra( getString( R.string.id_idComp ), 0 );
+        month    = ( Integer ) it.getIntExtra( getString( R.string.month ), 0 );
+        year     = ( Integer ) it.getIntExtra( getString( R.string.year ), 0 );
+        payroll  = ( String ) it.getStringExtra( getString( R.string.payroll ) );
+        paycheck = ( String ) it.getStringExtra( getString( R.string.paycheck ) );
+
+        contraCheque = ( BeanContraCheque ) Json.toObject( paycheck, BeanContraCheque.class );
+
+        buttonSave = ( Button ) findViewById( R.id.save );
+        buttonSave.setOnClickListener( this );
+
+        TextView textPayroll = ( TextView ) findViewById( R.id.payroll ),
+                 textPeriod  = ( TextView ) findViewById( R.id.period ),
+
+                 textTotalEarnings   = ( TextView ) findViewById( R.id.total_earnings ),
+                 textTotalDeductions = ( TextView ) findViewById( R.id.total_decutions ),
+                 textTotalLiquid     = ( TextView ) findViewById( R.id.total_liquid );
+
+        textPayroll.setText( payroll );
+        textPeriod.setText( month + "/" + year );
+
+        TableLayout tableEarnings    = ( TableLayout ) findViewById( R.id.earnings ),
+                    tableDeductions  = ( TableLayout ) findViewById( R.id.deductions ),
+                    tableInformation = ( TableLayout ) findViewById( R.id.aditional_info );
+
+        if ( contraCheque != null ) {
+
+            if (contraCheque.getEventos() != null) {
+
+                for ( BeanEventoContraCheque evento : contraCheque.getEventos() ) {
+
+                    TableRow row = createValueRow( evento.getDesEvento(), evento.getValor() );
+
+                    if ( "C".equals( evento.getDebitoCredito() ) ) {
+                        tableEarnings.addView( row );
+                    }
+                    else {
+                        tableDeductions.addView( row );
+                    }
+                }
+            }
+
+            textTotalEarnings.setText( contraCheque.getProventos() );
+            textTotalDeductions.setText( contraCheque.getDescontos() );
+            textTotalLiquid.setText( contraCheque.getLiquido() );
+
+            tableInformation.addView( createValueRow( contraCheque.getNivelSalarial(), contraCheque.getSalario() ) );
+            tableInformation.addView( createValueRow( "Sal. Base IAPS/INSS", contraCheque.getBasePrevidencia() ) );
+            tableInformation.addView( createValueRow( "Base Calc. FGTS", contraCheque.getBaseFGTS() ) );
+            tableInformation.addView( createValueRow( "F.G.T.S do Mês", contraCheque.getFGTS() ) );
+            tableInformation.addView( createValueRow( "Base Calc. IRRF", contraCheque.getBaseIRRF() ) );
+            tableInformation.addView( createValueRow( "Contrapartida Prefeitura - IPE", contraCheque.getIndiceSalarioFamilia() ) );
+        }
 
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( "usuario", (BeanUsuario) SessionManager.getInstance().getParameter( "usuario" ));
+            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -43,6 +119,108 @@ public class ContrachequeActivity extends BaseActivity {
 
             ft.replace( R.id.fragment_user, uf );
             ft.commit();
+        }
+    }
+
+    private TableRow createValueRow( String text, String value ) {
+
+        TableRow row = new TableRow( this );
+        TableRow.LayoutParams lp = new TableRow.LayoutParams( TableRow.LayoutParams.MATCH_PARENT );
+
+        TextView t = ( TextView ) getLayoutInflater().inflate( R.layout.widget_textview_paycheck_text, null ),
+                a = ( TextView ) getLayoutInflater().inflate( R.layout.widget_textview_paycheck_text_amount, null );
+
+        t.setText( text );
+        a.setText( value );
+
+        row.addView( t );
+        row.addView( a );
+
+        return row;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch ( v.getId() ) {
+
+            case R.id.save :
+
+                save();
+                break;
+        }
+    }
+
+    private void save() {
+
+        if ( !TextUtils.isEmpty( paycheck ) ) {
+
+            boolean created = true;
+
+            File folderPaychecks = new File( getFilesDir() + File.separator + getString( R.string.paycheck ).toLowerCase() ),
+                 yearFolder,
+                 monthFolder;
+
+            if ( !folderPaychecks.exists() ) {
+                created = folderPaychecks.mkdir();
+            }
+
+            if ( created ) {
+
+                yearFolder = new File( folderPaychecks, String.valueOf( year ) );
+
+                if ( !yearFolder.exists() ) {
+                    created = yearFolder.mkdir();
+                }
+
+                if ( created ) {
+
+                    monthFolder = new File( yearFolder, String.valueOf( month ) );
+
+                    if ( !monthFolder.exists() ) {
+                        created = monthFolder.mkdir();
+                    }
+
+                    if ( created ) {
+
+                        final File file = new File( monthFolder, idComp + ".json" );
+
+                        Log.i( "FILE", file.getPath() );
+
+                        FileOutputStream stream = null;
+
+                        try {
+
+                            stream = new FileOutputStream( file );
+                            stream.write( paycheck.getBytes() );
+
+                            Dialogs.Snack.create( findViewById( R.id.paycheck ), getString( R.string.paycheckSaved ), Snackbar.LENGTH_SHORT, getString( R.string.undo ).toUpperCase(), new View.OnClickListener() {
+
+                                @Override
+                                public void onClick( View v ) {
+                                    file.delete();
+                                }
+                            } ).show();
+                        }
+                        catch ( Exception e ) {
+                            e.printStackTrace();
+                        }
+                        finally {
+
+                            if ( stream != null ) {
+
+                                try {
+                                    stream.close();
+                                }
+                                catch ( Exception e ) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 }

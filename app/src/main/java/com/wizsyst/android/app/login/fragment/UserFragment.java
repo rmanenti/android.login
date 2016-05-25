@@ -28,15 +28,11 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.i( TAG, "onCreateView" );
-
         return inflater.inflate(R.layout.fragment_user, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        Log.i( TAG, "onViewCreated" );
 
         code = ( TextView ) getActivity().findViewById( R.id.uh_code );
         name = ( TextView ) getActivity().findViewById( R.id.uh_name );
@@ -47,12 +43,10 @@ public class UserFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
-        Log.i( TAG, "onActivityCreated" );
-
         Bundle ba = getArguments();
 
-        if ( user == null && ba != null && ba.containsKey( "usuario" ) ) {
-            setUser( ( BeanUsuario ) getArguments().getSerializable( "usuario" ) );
+        if ( user == null && ba != null && ba.containsKey( getString( R.string.user ) ) ) {
+            setUser( ( BeanUsuario ) getArguments().getSerializable( getString( R.string.user ) ) );
         }
     }
 

@@ -2,6 +2,7 @@
     <string name="app_name">Login</string>
     <string name="title">Public Servers\' Portal</string>
     <string name="subtitle">São Leopoldo</string>
+    <string name="user">User</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -20,21 +21,38 @@
     <string name="userOrPasswordNotInformed">The username or password were not informed.</string>
     <string name="userNotFoundToExecuteAction">User not found to execute requested action.</string>
     <string name="retrievingData">Retrieving data...</string>
+    <string name="paycheck">Paycheck</string>
     <string name="paycheckQuery">Paycheck Query</string>
+    <string name="paycheckSaved">Paycheck saved</string>
     <string name="clickToQueryThePaycheck">Click to query the paycheck.</string>
     <string name="queryingPaycheck">Querying requested paycheck.</string>
     <string name="invalidPaycheckParameters">The given parameters to load paycheck are invalid.</string>
+    <string name="additionalInformation">Additional Information</string>
     <string name="main">Main</string>
     <string name="year">Year</string>
     <string name="selectYear">Select year</string>
     <string name="month">Month</string>
     <string name="selectMonth">Select year</string>
     <string name="payroll">Payroll</string>
+    <string name="payrolls">Payrolls</string>
     <string name="selectPayroll">Select the payroll.</string>
     <string name="query">Query</string>
+    <string name="baseSalary">Basic Salary</string>
+    <string name="salary">Salary</string>
+    <string name="salaries">Salaries</string>
+    <string name="earnings">Earnings</string>
+    <string name="deductions">Deductions</string>
+    <string name="liquid">Liquid</string>
+    <string name="save">Save</string>
+    <string name="session">Session</string>
+    <string name="undo">Undo</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>
     <string name="A0003">@string/userNotFoundToExecuteAction</string>
     <string name="A0004">@string/invalidPaycheckParameters</string>
+
+    <string name="id.idServ" translatable="false">idServ</string>
+    <string name="id.idComp" translatable="false">idComp</string>
+
 </resources>

@@ -6,17 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.activity.MainActivity;
 import com.wizsyst.android.app.login.activity.contracheque.ContrachequeActivity;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
-import com.wizsyst.sigem.mobile.sleo.beans.BeanContraCheque;
+import com.wizsyst.android.app.login.utilities.json.Json;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanErro;
 
 import java.io.IOException;
@@ -35,27 +32,33 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
 
                                 PAYCHECK_ID_SERV = "idServ",
                                 PAYCHECK_ID_COMP = "idComp",
-                                PAYCHECK_SESSION = "sessao",
-
-                                SESSION       = "session";
+                                PAYCHECK_SESSION = "sessao";
 
     private static Long MAX_TIMEOUT      = 25000L,
                         MAX_READ_TIMEOUT = 25000L;
 
     private Context context;
+
     private Activity caller;
 
     private View messageBox;
+
     private TextView title,
                      message;
 
     private ProgressDialog progressDialog;
 
-    private BeanContraCheque contracheque;
     private BeanErro erro;
 
     private Long startTime,
                  endTime;
+
+    private String payroll,
+                   paycheck;
+
+    private Integer idComp,
+                    month,
+                    year;
 
     public ConsultaContrachequeTask(Context context ) {
 
@@ -74,7 +77,6 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
 
         progressDialog = ProgressDialog.show( context, context.getString( R.string.wait ), context.getString( R.string.queryingPaycheck ) );
     }
-
 
     @Override
     protected Boolean doInBackground(Map<String, Object>... params) {
@@ -107,7 +109,13 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
         if ( success ) {
 
             Intent it = new Intent( context, ContrachequeActivity.class );
-            it.putExtra( "contracheque", contracheque );
+
+            it.putExtra( PAYCHECK_ID_COMP, idComp );
+            it.putExtra( context.getString( R.string.month ), month );
+            it.putExtra( context.getString( R.string.year ), year );
+            it.putExtra( context.getString( R.string.payroll ), payroll );
+            it.putExtra( context.getString( R.string.paycheck ), paycheck );
+
             context.startActivity( it );
         }
         else {
@@ -142,6 +150,8 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
             return false;
         }
 
+        idComp = Integer.valueOf( params[ 0 ].get( PAYCHECK_ID_COMP ).toString() );
+
         String uri = new StringBuilder( PAYCHECK_URI )
                 .append( "?" )
                 .append( PAYCHECK_ID_SERV )
@@ -150,7 +160,7 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
                 .append( "&" )
                 .append( PAYCHECK_ID_COMP )
                 .append( "=" )
-                .append( params[ 0 ].get( PAYCHECK_ID_COMP ) )
+                .append( idComp )
                 .append( "&" )
                 .append( PAYCHECK_SESSION )
                 .append( "=" )
@@ -186,15 +196,17 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
 
                 data = Http.readString( in );
 
-                Gson gs = new Gson();
-
-                erro = gs.fromJson( data, BeanErro.class );
+                erro = ( BeanErro ) Json.toObject( data, BeanErro.class );
 
                 if ( erro != null && erro.getCodigo() != null ) {
                     return false;
                 }
                 else {
-                    contracheque = gs.fromJson( data, BeanContraCheque.class );
+
+                    month    = ( Integer ) params[ 0 ].get( context.getString( R.string.month ) );
+                    year     = ( Integer ) params[ 0 ].get( context.getString( R.string.year ) );
+                    payroll  = ( String ) params[ 0 ].get( context.getString( R.string.payroll ) );
+                    paycheck = data;
                 }
             }
             else {

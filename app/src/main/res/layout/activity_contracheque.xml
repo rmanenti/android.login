@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/portalDefaultMargin">
+    android:id="@+id/paycheck">
 
     <!--
     For some nefarious reason it is necessary to place a FrameLayout as a placeholder for the fragment and replace
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:alignmentMode="alignBounds"
         android:columnOrderPreserved="false"
-        android:columnCount="2">
+        android:columnCount="2"
+        style="@style/portalDefaultMargin">
 
         <TextView android:id="@+id/payroll"
             android:layout_width="wrap_content"
@@ -27,7 +29,6 @@
             android:layout_gravity="left|center_vertical"
             android:layout_row="0"
             android:layout_column="0"
-            android:text="Mensal"
             style="@style/portalSubtitle"/>
 
         <Button android:id="@+id/save"
@@ -38,7 +39,7 @@
             android:layout_rowSpan="2"
             android:layout_column="1"
             android:layout_columnSpan="1"
-            android:text="Salvar"
+            android:text="@string/save"
             style="@style/portalButton"/>
 
         <TextView android:id="@+id/period"
@@ -47,21 +48,21 @@
             android:layout_gravity="left|center_vertical"
             android:layout_row="1"
             android:layout_column="0"
-            android:text="Fevereiro/2016"
             style="@style/portalTitle"/>
 
     </GridLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/portalDefaultMargin">
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -79,54 +80,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Title"
-                            android:text="Vencimentos"/>
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text"
-                            android:text="VENCIMENTO"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text.Amount"
-                            android:text="1.434,84"/>
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="AUX. TRANSP. LEI N. 4390 97"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text.Amount"
-                            android:text="138,40"/>
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="INCORP. FG FC 3 LEI 5189 2002 7566 2"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text.Amount"
-                            android:text="198,42"/>
+                            android:text="@string/earnings"
+                            style="@style/portalPaycheck.Title"/>
 
                     </TableRow>
 
@@ -146,44 +101,14 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Title.Deductions"
-                            android:text="Descontos"/>
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Desconto Alimentacao Refeicao"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text.Amount"
-                            android:text="418,00"/>
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="I.A.P.S."/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/portalPaycheck.Text.Amount"
-                            android:text="203,33"/>
+                            android:text="@string/deductions"
+                            style="@style/portalPaycheck.Title.Deductions" />
 
                     </TableRow>
 
                 </TableLayout>
 
-                <LinearLayout
+                <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/portalGridBorderedWrapper">
@@ -196,7 +121,7 @@
                         android:columnCount="3"
                         style="@style/portalGridBordered">
 
-                        <LinearLayout
+                        <android.support.v7.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -209,17 +134,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/portalPaycheck.Text.Total"
-                                android:text="Proventos"/>
+                                android:text="@string/earnings"/>
 
                             <TextView
+                                android:id="@+id/total_earnings"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Total.Amount"
-                                android:text="2.404,89"/>
+                                style="@style/portalPaycheck.Text.Total.Amount"/>
 
-                        </LinearLayout>
+                        </android.support.v7.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <android.support.v7.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -232,17 +157,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/portalPaycheck.Text.Total"
-                                android:text="Descontos"/>
+                                android:text="@string/deductions"/>
 
                             <TextView
+                                android:id="@+id/total_decutions"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Total.Amount"
-                                android:text="621,33"/>
+                                style="@style/portalPaycheck.Text.Total.Amount"/>
 
-                        </LinearLayout>
+                        </android.support.v7.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <android.support.v7.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -256,23 +181,23 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/portalPaycheck.Text.Total"
-                                android:text="Líquido"/>
+                                android:text="@string/liquid"/>
 
                             <TextView
+                                android:id="@+id/total_liquid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Total.Amount"
-                                android:text="1.783,56"/>
+                                style="@style/portalPaycheck.Text.Total.Amount"/>
 
-                        </LinearLayout>
+                        </android.support.v7.widget.LinearLayoutCompat>
 
                     </GridLayout>
 
-                </LinearLayout>
+                </android.support.v7.widget.LinearLayoutCompat>
 
-            </LinearLayout>
+            </android.support.v7.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -282,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/portalText.Medium"
-                    android:text="Informações Adicionais"/>
+                    android:text="@string/additionalInformation"/>
 
                     <TableLayout
                         android:id="@+id/aditional_info"
@@ -290,66 +215,14 @@
                         android:layout_height="wrap_content"
                         android:stretchColumns="0">
 
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text"
-                                android:text="NIVEL VI CLASSE G"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Amount"
-                                android:text="1.434,84"/>
-
-                        </TableRow>
-
-                        <View style="@style/Divider"/>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text"
-                                android:text="Sal. Baase IAPS/INSS"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Amount"
-                                android:text="1.848,49"/>
-
-                        </TableRow>
-
-                        <View style="@style/Divider"/>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text"
-                                android:text="Base Calc. FGTS"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/portalPaycheck.Text.Amount"
-                                android:text="0,00"/>
-
-                        </TableRow>
-
                         <View style="@style/Divider"/>
 
                     </TableLayout>
 
-            </LinearLayout>
+            </android.support.v7.widget.LinearLayoutCompat>
 
-        </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
     </ScrollView>
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>
