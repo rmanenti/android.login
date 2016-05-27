@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -194,13 +195,19 @@ public class ContrachequeActivity extends BaseActivity implements View.OnClickLi
                             stream = new FileOutputStream( file );
                             stream.write( paycheck.getBytes() );
 
-                            Dialogs.Snack.create( findViewById( R.id.paycheck ), getString( R.string.paycheckSaved ), Snackbar.LENGTH_SHORT, getString( R.string.undo ).toUpperCase(), new View.OnClickListener() {
+                            Dialogs.Snack.style(
+                                    Dialogs.Snack.create( findViewById( R.id.paycheck ), getString( R.string.paycheckSaved ), Snackbar.LENGTH_LONG, getString( R.string.undo ).toUpperCase(), new View.OnClickListener() {
 
-                                @Override
-                                public void onClick( View v ) {
-                                    file.delete();
-                                }
-                            } ).show();
+                                        @Override
+                                        public void onClick( View v ) {
+                                            file.delete();
+                                        }
+                                    } ),
+                                    ContextCompat.getColor( this, R.color.colorAccentDark ),
+                                    ContextCompat.getColor( this, R.color.colorInputText ),
+                                    ContextCompat.getColor( this, R.color.colorPrimary )
+                            )
+                            .show();
                         }
                         catch ( Exception e ) {
                             e.printStackTrace();

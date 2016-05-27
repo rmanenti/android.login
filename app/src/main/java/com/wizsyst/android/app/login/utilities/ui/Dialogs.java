@@ -1,7 +1,9 @@
 package com.wizsyst.android.app.login.utilities.ui;
 
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by rmanenti on 25/05/2016.
@@ -20,6 +22,22 @@ public class Dialogs {
             sb.setAction( actionText, action );
 
             return sb;
+        }
+
+        public static Snackbar style( Snackbar snackbar, int actionTextColor, int textColor, int backgroundColor ) {
+
+            if ( snackbar != null ) {
+
+                snackbar.setActionTextColor( actionTextColor );
+
+                View view = snackbar.getView();
+                view.setBackgroundColor( backgroundColor );
+
+                TextView textView = ( TextView ) view.findViewById( android.support.design.R.id.snackbar_text );
+                textView.setTextColor( textColor );
+            }
+
+            return snackbar;
         }
     }
 }
