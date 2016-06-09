@@ -21,7 +21,7 @@ import com.wizsyst.android.app.login.adapter.BeanFolhaAdapter;
 import com.wizsyst.android.app.login.adapter.BeanMesAdapter;
 import com.wizsyst.android.app.login.fragment.UserFragment;
 import com.wizsyst.android.app.login.session.SessionManager;
-import com.wizsyst.android.app.login.task.ConsultaContrachequeTask;
+import com.wizsyst.android.app.login.task.PaycheckQueryTask;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 import com.wizsyst.android.app.login.utilities.temporal.DateUtils;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanAno;
@@ -33,9 +33,9 @@ import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConsultaActivity extends BaseActivity implements View.OnClickListener {
+public class PaycheckQueryActivity extends BaseActivity implements View.OnClickListener {
 
-    public static final String TAG = "ConsultaActivity";
+    public static final String TAG = "PaycheckQueryActivity";
 
     private AlertDialog.Builder builder;
 
@@ -66,7 +66,7 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
 
         super.onCreate(savedInstanceState);
 
-        setContentView( R.layout.activity_contracheque_consulta );
+        setContentView( R.layout.activity_paycheck_query);
 
         builder = new AlertDialog.Builder( this, R.style.portalAlertDialogCustom );
 
@@ -157,46 +157,6 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
             ft.replace( R.id.fragment_user, uf );
             ft.commit();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate( R.menu.main, menu );
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        Class activity = this.getClass();
-
-        switch ( item.getItemId() ) {
-
-            case R.id.menu_main :
-
-                activity = MainActivity.class;
-                break;
-
-            case R.id.menu_paycheck_query :
-
-                activity = ConsultaActivity.class;
-                break;
-
-            case R.id.menu_logout :
-
-                activity = LoginActivity.class;
-                break;
-
-        }
-
-        if ( !this.getClass().isAssignableFrom( activity ) ) {
-            ActivityUtils.start( getBaseContext(), activity );
-        }
-
-        return true;
     }
 
     @Override
@@ -317,7 +277,7 @@ public class ConsultaActivity extends BaseActivity implements View.OnClickListen
 
         final BeanUsuario usuario = ( ( BeanUsuario ) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
 
-        ConsultaContrachequeTask ct = new ConsultaContrachequeTask( this );
+        PaycheckQueryTask ct = new PaycheckQueryTask( this );
         ct.execute( new HashMap<String, Object>() {
             {
                 put( getString( R.string.session ), usuario.getSessao() );

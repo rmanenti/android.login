@@ -24,6 +24,7 @@
     <string name="paycheck">Contracheque</string>
     <string name="paycheckQuery">Consultar Contracheque</string>
     <string name="paycheckSaved">Contracheque salvo</string>
+    <string name="paycheckDiscarded">Contracheque descartado</string>
     <string name="invalidPaycheckParameters">Os parâmetros fornecidos para carregar o contracheque são inválidos.</string>
     <string name="clickToQueryThePaycheck">Clique para consultar o contracheque.</string>
     <string name="queryingPaycheck">Consultando contracheque solicitado.</string>
@@ -44,8 +45,12 @@
     <string name="deductions">Descontos</string>
     <string name="liquid">Líquido</string>
     <string name="save">Salvar</string>
+    <string name="saved">Salvo</string>
+    <string name="remove">Remover</string>
+    <string name="discard">Descartar</string>
     <string name="session">Sessão</string>
     <string name="undo">Desfazer</string>
+    <string name="options">Opções</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>

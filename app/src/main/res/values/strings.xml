@@ -2,6 +2,7 @@
     <string name="app_name">Login</string>
     <string name="title">Public Servers\' Portal</string>
     <string name="subtitle">São Leopoldo</string>
+    <string name="portal">Portal</string>
     <string name="user">User</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -24,6 +25,7 @@
     <string name="paycheck">Paycheck</string>
     <string name="paycheckQuery">Paycheck Query</string>
     <string name="paycheckSaved">Paycheck saved</string>
+    <string name="paycheckDiscarded">Paycheck discarded</string>
     <string name="clickToQueryThePaycheck">Click to query the paycheck.</string>
     <string name="queryingPaycheck">Querying requested paycheck.</string>
     <string name="invalidPaycheckParameters">The given parameters to load paycheck are invalid.</string>
@@ -44,8 +46,12 @@
     <string name="deductions">Deductions</string>
     <string name="liquid">Liquid</string>
     <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="remove">Remove</string>
+    <string name="discard">Discard</string>
     <string name="session">Session</string>
     <string name="undo">Undo</string>
+    <string name="options">Options</string>
     <string name="A0000">@string/userOrPasswordNotInformed</string>
     <string name="A0001">@string/noConnectionAvailable</string>
     <string name="A0002">@string/couldNotConnectToService</string>
@@ -54,5 +60,10 @@
 
     <string name="id.idServ" translatable="false">idServ</string>
     <string name="id.idComp" translatable="false">idComp</string>
+
+    <string name="type.fragment_list" translatable="false">fragment_list</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

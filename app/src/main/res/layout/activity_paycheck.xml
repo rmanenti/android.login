@@ -6,14 +6,8 @@
     android:orientation="vertical"
     android:id="@+id/paycheck">
 
-    <!--
-    For some nefarious reason it is necessary to place a FrameLayout as a placeholder for the fragment and replace
-    it when the activity is created. Otherwise, the fragment will be created several times.
-    See: https://guides.codepath.com/android/Creating-and-Using-Fragments
-    -->
-    <FrameLayout android:id="@+id/fragment_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!-- Toolbar and user fragment -->
+    <include layout="@layout/layout_top" />
 
     <GridLayout
         android:layout_width="match_parent"

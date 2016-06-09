@@ -1,6 +1,7 @@
 package com.wizsyst.android.app.login.adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.activity.base.BaseActivity;
 import com.wizsyst.android.app.login.utilities.temporal.DateUtils;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanMes;
 
@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class BeanMesAdapter extends BaseAdapter {
 
-    private BaseActivity activity;
+    private AppCompatActivity activity;
     private LayoutInflater inflater;
     private List<BeanMes> list;
 
-    public BeanMesAdapter(BaseActivity activity, List<BeanMes> list) {
+    public BeanMesAdapter(AppCompatActivity activity, List<BeanMes> list) {
 
         this.activity = activity;
         this.list = list;

@@ -1,6 +1,5 @@
 package com.wizsyst.android.app.login.activity.contracheque;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,12 +26,11 @@ import com.wizsyst.sigem.mobile.sleo.beans.BeanUsuario;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.Normalizer;
 
 /**
  * Created by rmanenti on 16/05/2016.
  */
-public class ContrachequeActivity extends BaseActivity implements View.OnClickListener {
+public class PaycheckActivity extends BaseActivity implements View.OnClickListener {
 
     private String payroll,
                    paycheck;
@@ -40,6 +38,8 @@ public class ContrachequeActivity extends BaseActivity implements View.OnClickLi
     private Integer idComp,
                     month,
                     year;
+
+    private boolean saved = false;
 
     private Button buttonSave;
 
@@ -50,7 +50,7 @@ public class ContrachequeActivity extends BaseActivity implements View.OnClickLi
 
         super.onCreate( savedInstanceState );
 
-        setContentView( R.layout.activity_contracheque );
+        setContentView( R.layout.activity_paycheck);
 
         Intent it = getIntent();
 
@@ -59,11 +59,16 @@ public class ContrachequeActivity extends BaseActivity implements View.OnClickLi
         year     = ( Integer ) it.getIntExtra( getString( R.string.year ), 0 );
         payroll  = ( String ) it.getStringExtra( getString( R.string.payroll ) );
         paycheck = ( String ) it.getStringExtra( getString( R.string.paycheck ) );
+        saved    = ( Boolean ) it.getBooleanExtra( getString( R.string.saved ), false );
 
         contraCheque = ( BeanContraCheque ) Json.toObject( paycheck, BeanContraCheque.class );
 
         buttonSave = ( Button ) findViewById( R.id.save );
         buttonSave.setOnClickListener( this );
+
+        if ( saved ) {
+            buttonSave.setText( getString( R.string.discard ) );
+        }
 
         TextView textPayroll = ( TextView ) findViewById( R.id.payroll ),
                  textPeriod  = ( TextView ) findViewById( R.id.period ),
@@ -155,6 +160,25 @@ public class ContrachequeActivity extends BaseActivity implements View.OnClickLi
     private void save() {
 
         if ( !TextUtils.isEmpty( paycheck ) ) {
+
+            if ( saved ) {
+
+                Dialogs.Snack.style(
+                        Dialogs.Snack.create( findViewById( R.id.paycheck ), getString( R.string.paycheckDiscarded ), Snackbar.LENGTH_LONG, getString( R.string.undo ).toUpperCase(), new View.OnClickListener() {
+
+                            @Override
+                            public void onClick( View v ) {
+
+                            }
+                        } ),
+                        ContextCompat.getColor( this, R.color.colorAccentDark ),
+                        ContextCompat.getColor( this, R.color.colorInputText ),
+                        ContextCompat.getColor( this, R.color.colorPrimary )
+                )
+                .show();
+
+                return;
+            }
 
             boolean created = true;
 

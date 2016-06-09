@@ -1,7 +1,7 @@
 package com.wizsyst.android.app.login.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.activity.base.BaseActivity;
 import com.wizsyst.sigem.mobile.sleo.beans.BeanAno;
 
 import java.util.List;
@@ -19,11 +18,11 @@ import java.util.List;
  */
 public class BeanAnoAdapter extends BaseAdapter {
 
-    private BaseActivity activity;
+    private AppCompatActivity activity;
     private LayoutInflater inflater;
     private List<BeanAno> list;
 
-    public BeanAnoAdapter(BaseActivity activity, List<BeanAno> list) {
+    public BeanAnoAdapter( AppCompatActivity activity, List<BeanAno> list) {
 
         this.activity = activity;
         this.list = list;
@@ -31,12 +30,22 @@ public class BeanAnoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+
+        if ( list != null ) {
+            return list.size();
+        }
+
+        return 0;
     }
 
     @Override
     public Object getItem(int location) {
-        return list.get(location);
+
+        if ( list != null ) {
+            return list.get(location);
+        }
+
+        return null;
     }
 
     @Override

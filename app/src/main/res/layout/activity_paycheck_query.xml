@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--
-    For some nefarious reason it is necessary to place a FrameLayout as a placeholder for the fragment and replace
-    it when the activity is created. Otherwise, the fragment will be created several times.
-    See: https://guides.codepath.com/android/Creating-and-Using-Fragments
-    -->
-    <FrameLayout android:id="@+id/fragment_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!-- Toolbar and user fragment -->
+    <include layout="@layout/layout_top" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,7 +14,7 @@
         style="@style/portalBox"
         android:layout_margin="10dp">
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -105,18 +100,18 @@
                 android:id="@+id/mb"
                 style="@style/portalMessageBox">
 
-                <LinearLayout
+                <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_feedback_black_48dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_information"
                         android:id="@+id/mb_icon"/>
 
-                    <LinearLayout
+                    <android.support.v7.widget.LinearLayoutCompat
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -135,14 +130,14 @@
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:id="@+id/mb_message_text"
                             style="@style/portalMessageBoxText"/>
-                    </LinearLayout>
+                    </android.support.v7.widget.LinearLayoutCompat>
 
-                </LinearLayout>
+                </android.support.v7.widget.LinearLayoutCompat>
 
             </FrameLayout>
 
-        </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
     </FrameLayout>
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>

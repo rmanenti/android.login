@@ -1,6 +1,6 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="portalFontSizeDefault">12dp</dimen>
+    <dimen name="portalFontSizeDefault">14dp</dimen>
     <dimen name="portalFontSizeMedium">16dp</dimen>
     <dimen name="portalFontSizeLarge">20dp</dimen>
     <dimen name="portalFontSizeXLarge">24dp</dimen>

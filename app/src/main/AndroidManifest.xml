@@ -4,11 +4,12 @@
     android:versionCode="4"
     android:versionName="alfa4">
 
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="23" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-sdk android:minSdkVersion="16"
-              android:targetSdkVersion="23"/>
 
     <application
         android:allowBackup="true"
@@ -24,20 +25,37 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity" />
-
-        <activity android:name=".activity.contracheque.ConsultaActivity"
-                  android:parentActivityName=".activity.MainActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activity.MainActivity" />
-
+        <activity
+            android:name=".activity.MainActivity"
+            android:parentActivityName=".activity.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LoginActivity" />
         </activity>
 
-        <activity android:name=".activity.contracheque.ContrachequeActivity"
-            android:parentActivityName=".activity.contracheque.ConsultaActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activity.contracheque.ConsultaActivity" />
+        <activity
+            android:name=".activity.contracheque.PaycheckQueryActivity" /> <!--
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity> -->
 
-        </activity>
+        <activity
+            android:name=".activity.contracheque.PaycheckActivity"/> <!--
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity> -->
 
+        <activity
+            android:name=".activity.contracheque.PaycheckQuerySavedActivity" /> <!--
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity> -->
     </application>
 
 </manifest>

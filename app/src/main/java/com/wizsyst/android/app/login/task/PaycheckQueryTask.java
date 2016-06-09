@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wizsyst.android.app.login.R;
-import com.wizsyst.android.app.login.activity.contracheque.ContrachequeActivity;
+import com.wizsyst.android.app.login.activity.contracheque.PaycheckActivity;
 import com.wizsyst.android.app.login.utilities.connection.Service;
 import com.wizsyst.android.app.login.utilities.connection.http.Http;
 import com.wizsyst.android.app.login.utilities.json.Json;
@@ -26,12 +26,9 @@ import java.util.Map;
 /**
  * Created by rmanenti on 16/05/2016.
  */
-public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, String, Boolean> {
+public class PaycheckQueryTask extends AsyncTask<Map<String, Object>, String, Boolean> {
 
     private static final String PAYCHECK_URI      = "http://192.168.0.7:8080/WizSigemMobile/WS/SLeo/ContraCheques/cc",
-
-                                PAYCHECK_ID_SERV = "idServ",
-                                PAYCHECK_ID_COMP = "idComp",
                                 PAYCHECK_SESSION = "sessao";
 
     private static Long MAX_TIMEOUT      = 25000L,
@@ -60,7 +57,7 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
                     month,
                     year;
 
-    public ConsultaContrachequeTask(Context context ) {
+    public PaycheckQueryTask(Context context ) {
 
         this.context = context;
 
@@ -108,9 +105,9 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
 
         if ( success ) {
 
-            Intent it = new Intent( context, ContrachequeActivity.class );
+            Intent it = new Intent( context, PaycheckActivity.class );
 
-            it.putExtra( PAYCHECK_ID_COMP, idComp );
+            it.putExtra( context.getString( R.string.id_idComp ), idComp );
             it.putExtra( context.getString( R.string.month ), month );
             it.putExtra( context.getString( R.string.year ), year );
             it.putExtra( context.getString( R.string.payroll ), payroll );
@@ -150,15 +147,15 @@ public class ConsultaContrachequeTask extends AsyncTask<Map<String, Object>, Str
             return false;
         }
 
-        idComp = Integer.valueOf( params[ 0 ].get( PAYCHECK_ID_COMP ).toString() );
+        idComp = Integer.valueOf( params[ 0 ].get( context.getString( R.string.id_idComp ) ).toString() );
 
         String uri = new StringBuilder( PAYCHECK_URI )
                 .append( "?" )
-                .append( PAYCHECK_ID_SERV )
+                .append( context.getString( R.string.id_idServ ) )
                 .append( "=" )
-                .append( params[ 0 ].get( PAYCHECK_ID_SERV ) )
+                .append( params[ 0 ].get( context.getString( R.string.id_idServ ) ) )
                 .append( "&" )
-                .append( PAYCHECK_ID_COMP )
+                .append( context.getString( R.string.id_idComp ) )
                 .append( "=" )
                 .append( idComp )
                 .append( "&" )

@@ -1,6 +1,7 @@
 package com.wizsyst.android.app.login.adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,11 @@ import java.util.List;
  */
 public class BeanFolhaAdapter extends BaseAdapter {
 
-    private BaseActivity activity;
+    private AppCompatActivity activity;
     private LayoutInflater inflater;
     private List<BeanFolha> list;
 
-    public BeanFolhaAdapter(BaseActivity activity, List<BeanFolha> list) {
+    public BeanFolhaAdapter(AppCompatActivity activity, List<BeanFolha> list) {
 
         this.activity = activity;
         this.list = list;
