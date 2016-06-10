@@ -2,7 +2,7 @@
     <string name="app_name">Login</string>
     <string name="title">Public Servers\' Portal</string>
     <string name="subtitle">São Leopoldo</string>
-    <string name="portal">Portal</string>
+    <string name="portal" translatable="false">Portal</string>
     <string name="user">User</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -62,8 +62,5 @@
     <string name="id.idComp" translatable="false">idComp</string>
 
     <string name="type.fragment_list" translatable="false">fragment_list</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

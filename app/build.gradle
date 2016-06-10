@@ -13,8 +13,8 @@ android {
         applicationId "com.wizsyst.android.app.login"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 3
-        versionName "alfa3"
+        versionCode 4
+        versionName "alfa4"
     }
     buildTypes {
         release {
