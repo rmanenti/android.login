@@ -30,7 +30,7 @@ public class PaycheckQuerySavedActivity extends BaseActivity implements View.OnC
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance().getParameter( getString( R.string.user ) ));
+            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance( getBaseContext() ).getParameter( getString( R.string.user ) ));
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 

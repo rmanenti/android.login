@@ -15,6 +15,7 @@ import com.wizsyst.android.app.login.activity.LoginActivity;
 import com.wizsyst.android.app.login.activity.MainActivity;
 import com.wizsyst.android.app.login.activity.contracheque.PaycheckQueryActivity;
 import com.wizsyst.android.app.login.activity.contracheque.PaycheckQuerySavedActivity;
+import com.wizsyst.android.app.login.session.SessionManager;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 
 /**
@@ -45,33 +46,43 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected( MenuItem item ) {
+        return openMenuActivity( item.getItemId() );
+    }
+
+    public boolean openMenuActivity( int id ) {
 
         Class activity = this.getClass();
 
-        switch ( item.getItemId() ) {
+        if ( !SessionManager.getInstance( getBaseContext() ).isLogged() ) {
+            SessionManager.getInstance( getBaseContext() ).destroy();
+        }
+        else {
 
-            case R.id.menu_main :
+            switch (id) {
 
-                activity = MainActivity.class;
-                break;
+                case R.id.menu_main:
 
-            case R.id.menu_paycheck_saved :
+                    activity = MainActivity.class;
+                    break;
 
-                activity = PaycheckQuerySavedActivity.class;
-                break;
+                case R.id.menu_paycheck_saved:
 
-            case R.id.menu_paycheck_query :
+                    activity = PaycheckQuerySavedActivity.class;
+                    break;
 
-                activity = PaycheckQueryActivity.class;
-                break;
+                case R.id.menu_paycheck_query:
 
-            case R.id.menu_logout :
+                    activity = PaycheckQueryActivity.class;
+                    break;
 
-                activity = LoginActivity.class;
-                break;
+                case R.id.menu_logout:
 
-            default :
-                return true;
+                    SessionManager.getInstance( getBaseContext() ).destroy();
+                    return false;
+
+                default:
+                    return true;
+            }
         }
 
         if ( !this.getClass().isAssignableFrom( activity ) ) {

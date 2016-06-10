@@ -14,4 +14,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/title" />
+
+        <com.wefika.flowlayout.FlowLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/portalDefaultMargin">
+
+        </com.wefika.flowlayout.FlowLayout>
+
 </android.support.v7.widget.LinearLayoutCompat>

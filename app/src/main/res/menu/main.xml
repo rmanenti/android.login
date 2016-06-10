@@ -4,6 +4,7 @@
 
     <item android:id="@+id/menu_main"
           android:title="@string/main"
+          android:icon="@drawable/ic_home"
           app:showAsAction="never" />
 
     <item android:id="@+id/menu_paycheck_query"
@@ -16,6 +17,9 @@
           android:icon="@drawable/ic_folder_download"
           app:showAsAction="ifRoom|withText" />
 
-    <item android:id="@+id/menu_logout" android:title="@string/logout" />
+    <item android:id="@+id/menu_logout"
+          android:title="@string/logout"
+          android:icon="@drawable/ic_logout"
+          app:showAsAction="never" />
 
 </menu>

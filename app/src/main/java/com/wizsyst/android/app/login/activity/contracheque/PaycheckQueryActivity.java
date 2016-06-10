@@ -70,7 +70,7 @@ public class PaycheckQueryActivity extends BaseActivity implements View.OnClickL
 
         builder = new AlertDialog.Builder( this, R.style.portalAlertDialogCustom );
 
-        folhas = ( BeanFolhas ) SessionManager.getInstance().getParameter( getString( R.string.payrolls ) );
+        folhas = ( BeanFolhas ) SessionManager.getInstance( getBaseContext() ).getParameter( getString( R.string.payrolls ) );
 
         if ( folhas != null && folhas.getFolhas() != null ) {
             load( R.id.year );
@@ -147,7 +147,7 @@ public class PaycheckQueryActivity extends BaseActivity implements View.OnClickL
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance().getParameter( getString( R.string.user ) ));
+            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance( getBaseContext() ).getParameter( getString( R.string.user ) ));
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -275,7 +275,7 @@ public class PaycheckQueryActivity extends BaseActivity implements View.OnClickL
 
     protected void query() {
 
-        final BeanUsuario usuario = ( ( BeanUsuario ) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
+        final BeanUsuario usuario = ( ( BeanUsuario ) SessionManager.getInstance( getBaseContext() ).getParameter( getString( R.string.user ) ) );
 
         PaycheckQueryTask ct = new PaycheckQueryTask( this );
         ct.execute( new HashMap<String, Object>() {

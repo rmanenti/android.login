@@ -68,7 +68,7 @@ public class ListSavedPaychecksFragment extends ListFragment {
 
         super.onCreate( savedInstanceState );
 
-        folhas = ( BeanFolhas ) SessionManager.getInstance().getParameter( getString( R.string.payrolls ) );
+        folhas = ( BeanFolhas ) SessionManager.getInstance( getContext() ).getParameter( getString( R.string.payrolls ) );
     }
 
     @Override

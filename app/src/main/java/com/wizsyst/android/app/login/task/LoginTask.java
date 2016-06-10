@@ -115,14 +115,14 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
 
         if ( success ) {
 
-            SessionManager.getInstance().create( usuario.getSessao(), 30 );
+            SessionManager.getInstance( context ).create( usuario.getSessao(), 30 );
 
             Intent it = new Intent( context, MainActivity.class );
             context.startActivity( it );
         }
         else {
 
-            SessionManager.getInstance().destroy();
+            SessionManager.getInstance( context ).destroy();
 
             Handler messageBoxHandler = new Handler();
             Runnable messageBoxRunnable = new Runnable() {
@@ -208,7 +208,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                 else {
 
                     usuario = gs.fromJson(data, BeanUsuario.class);
-                    SessionManager.getInstance().addParameter( context.getString( R.string.user ), usuario );
+                    SessionManager.getInstance( context ).addParameter( context.getString( R.string.user ), usuario );
                 }
             }
             else {
@@ -321,7 +321,7 @@ public class LoginTask extends AsyncTask<String, String, Boolean> {
                     return false;
                 }
                 else {
-                    SessionManager.getInstance().addParameter( context.getString( R.string.payrolls ), gs.fromJson( data, BeanFolhas.class ) );
+                    SessionManager.getInstance( context ).addParameter( context.getString( R.string.payrolls ), gs.fromJson( data, BeanFolhas.class ) );
                 }
             }
             else {

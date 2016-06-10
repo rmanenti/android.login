@@ -116,7 +116,7 @@ public class PaycheckActivity extends BaseActivity implements View.OnClickListen
         if ( savedInstanceState == null ) {
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance().getParameter( getString( R.string.user ) ) );
+            arguments.putSerializable( getString( R.string.user ), (BeanUsuario) SessionManager.getInstance( getBaseContext() ).getParameter( getString( R.string.user ) ) );
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -161,30 +161,45 @@ public class PaycheckActivity extends BaseActivity implements View.OnClickListen
 
         if ( !TextUtils.isEmpty( paycheck ) ) {
 
+            File folderPaychecks = new File( getFilesDir() + File.separator + getString( R.string.paycheck ).toLowerCase() ),
+                 yearFolder,
+                 monthFolder;
+
             if ( saved ) {
 
-                Dialogs.Snack.style(
-                        Dialogs.Snack.create( findViewById( R.id.paycheck ), getString( R.string.paycheckDiscarded ), Snackbar.LENGTH_LONG, getString( R.string.undo ).toUpperCase(), new View.OnClickListener() {
+                final File file = new File(
+                        new File(
+                                new StringBuilder( folderPaychecks.getPath() )
+                                          .append( File.separator )
+                                          .append( String.valueOf( year ) )
+                                          .append( File.separator )
+                                          .append( String.valueOf( month ) )
+                                          .toString()
+                        ), idComp + ".json" );
 
-                            @Override
-                            public void onClick( View v ) {
+                if ( file.exists() && file.delete() ) {
 
-                            }
-                        } ),
-                        ContextCompat.getColor( this, R.color.colorAccentDark ),
-                        ContextCompat.getColor( this, R.color.colorInputText ),
-                        ContextCompat.getColor( this, R.color.colorPrimary )
-                )
-                .show();
+                    Dialogs.Snack.style(
+                            Dialogs.Snack.create(findViewById(R.id.paycheck), getString(R.string.paycheckDiscarded), Snackbar.LENGTH_LONG, getString(R.string.undo).toUpperCase(), new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+
+                                    saved = false;
+                                    save();
+                                }
+                            }),
+                            ContextCompat.getColor(this, R.color.colorAccentDark),
+                            ContextCompat.getColor(this, R.color.colorInputText),
+                            ContextCompat.getColor(this, R.color.colorPrimary)
+                    )
+                    .show();
+                }
 
                 return;
             }
 
             boolean created = true;
-
-            File folderPaychecks = new File( getFilesDir() + File.separator + getString( R.string.paycheck ).toLowerCase() ),
-                 yearFolder,
-                 monthFolder;
 
             if ( !folderPaychecks.exists() ) {
                 created = folderPaychecks.mkdir();
@@ -210,8 +225,6 @@ public class PaycheckActivity extends BaseActivity implements View.OnClickListen
 
                         final File file = new File( monthFolder, idComp + ".json" );
 
-                        Log.i( "FILE", file.getPath() );
-
                         FileOutputStream stream = null;
 
                         try {
@@ -224,7 +237,7 @@ public class PaycheckActivity extends BaseActivity implements View.OnClickListen
 
                                         @Override
                                         public void onClick( View v ) {
-                                            file.delete();
+                                        file.delete();
                                         }
                                     } ),
                                     ContextCompat.getColor( this, R.color.colorAccentDark ),

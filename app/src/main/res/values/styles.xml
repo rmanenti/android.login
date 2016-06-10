@@ -72,6 +72,14 @@
         <item name="android:layout_margin">@dimen/portalMarginDefault</item>
     </style>
 
+    <style name="portalButtonOval" parent="portalDefaultSpacing">
+        <item name="android:background">@drawable/shape_portal_oval</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
     <style name="portalBox" parent="portalDefaultSpacing">
         <item name="android:background">@drawable/shape_portal_box</item>
         <item name="android:layout_gravity">center</item>

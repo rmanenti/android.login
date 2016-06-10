@@ -2,9 +2,11 @@ package com.wizsyst.android.app.login.session;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.wizsyst.android.app.login.activity.LoginActivity;
 import com.wizsyst.android.app.login.utilities.ActivityUtils;
 
 import java.util.Calendar;
@@ -48,20 +50,10 @@ public class SessionManager {
         return sessionManager;
     }
 
-    public static final SessionManager getInstance() {
-
-        if ( sessionManager != null ) {
-            return sessionManager;
-        }
-
-        return null;
-    }
-
     private SessionManager( Context context ) {
 
         this.context = context;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences( context );
-        editor            = sharedPreferences.edit();
     }
 
     public static final boolean isSessionCreated() {
@@ -79,6 +71,7 @@ public class SessionManager {
 
         Calendar c = Calendar.getInstance();
 
+        editor = sharedPreferences.edit();
         editor.putBoolean( LOGGED, true );
         editor.putString( ID, id );
         editor.putLong( START, c.getTimeInMillis() );
@@ -124,15 +117,13 @@ public class SessionManager {
         }
 
         sessionManager = null;
+
+        Intent i = new Intent( context, LoginActivity.class );
+        i.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+        context.startActivity( i );
     }
 
-    public void destroy( Class<? extends Activity> startActivity ) {
-
-        destroy();
-        ActivityUtils.start( context, startActivity );
-    }
-
-    public boolean isLogged(){
+    public boolean isLogged() {
         return sharedPreferences.getBoolean( LOGGED, false );
     }
 }

@@ -36,10 +36,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         buttonLogin.setOnClickListener( this );
 
         messageBox    = findViewById( R.id.mb );
-
-        if ( session != null ) {
-            session.destroy();
-        }
     }
 
     @Override
